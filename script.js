@@ -1,6 +1,6 @@
 // Central event settings: update these values to personalize the whole page quickly.
 const partyConfig = {
-  hostName: "TED",
+  hostName: "Matteo",
   eventName: "Birthday Night",
   eventTagline: "Big-stage energy. Birthday-level joy.",
   isoDate: "2026-07-30T19:30:00+02:00",
