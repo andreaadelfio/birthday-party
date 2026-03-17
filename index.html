@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Birthday Night</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="brand" href="#top" aria-label="Go to top">
+          <span class="brand-wordmark">
+            MAT
+            <span class="brand-accent" data-host-initial>TED</span>
+            <span data-event-name>Birthday</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav">
+          <a href="#story">About</a>
+          <a href="#countdown">Countdown</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#venue">Venue</a>
+          <a href="#faq">FAQ</a>
+          <a href="#rsvp">RSVP</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="top">
+
+      <section class="countdown-section" id="countdown">
+        <div class="container countdown-inner">
+          <div class="countdown-grid reveal" aria-label="Time until the event">
+            <div class="count-segment">
+              <span id="days">00</span>
+              <small>Days</small>
+            </div>
+            <div class="count-segment">
+              <span id="hours">00</span>
+              <small>Hours</small>
+            </div>
+            <div class="count-segment">
+              <span id="minutes">00</span>
+              <small>Minutes</small>
+            </div>
+            <div class="count-segment">
+              <span id="seconds">00</span>
+              <small>Seconds</small>
+            </div>
+          </div>
+          <!-- <div class="section-heading section-heading-center reveal">
+            <p class="section-kicker">Countdown</p>
+            <h2>The night gets closer every second.</h2>
+            <p>
+              Save it, plan it, and show up ready for the strongest moment of
+              the summer.
+            </p>
+          </div> -->
+
+        </div>
+      </section>
+
+      <section class="hero">
+        <div class="container hero-inner">
+          <div class="hero-copy reveal">
+            <p class="hero-kicker">Birthday Celebration</p>
+            <h1>
+              <span class="hero-accent" data-host-name>Matteo</span>'s
+              <span data-event-name>Birthday Night</span>
+            </h1>
+            <p class="hero-date" data-display-date>Saturday, July 30, 2026</p>
+            <p class="hero-venue">
+              <span data-display-time>7:30 PM until late</span>
+              <span class="hero-separator">|</span>
+              <span data-venue-name>Ficarazzi</span>
+            </p>
+            <p class="hero-lead">
+              A birthday site shaped like an event landing page: clear, bold,
+              and high-energy from the first screen, with everything guests need
+              in one place.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#rsvp">RSVP now</a>
+              <a class="button button-dark-outline" href="#schedule">
+                View schedule
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="event-banner">
+        <div class="container event-banner-grid">
+          <article class="banner-block reveal">
+            <span class="banner-label">Date &amp; Time</span>
+            <p>
+              <span data-display-date>Friday, July 30, 2026</span><br />
+              <span data-display-time>7:30 PM until late</span>
+            </p>
+          </article>
+
+          <article class="banner-block reveal">
+            <span class="banner-label">Venue</span>
+            <p>
+              <span data-venue-name>Ficarazzi</span><br />
+              <span data-address>Via Example 24, Rome, Italy</span>
+            </p>
+          </article>
+
+          <div class="banner-block banner-action reveal">
+            <button class="button button-outline" type="button" data-download-ics>
+              Download invite
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light" id="story">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">About the night</p>
+            <h2>Structured like an event. Felt like a celebration.</h2>
+            <p>
+              The reference is the sharp rhythm of a TEDx landing page: dark
+              hero, strong type, precise sections, and a clean event banner. The
+              content, though, is all birthday energy.
+            </p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-box reveal">
+              <div class="feature-top">
+                <span>01</span>
+              </div>
+              <div class="feature-body">
+                <h3>Arrive to a real opening</h3>
+                <p>
+                  The night starts with intention: drinks ready, music set, and
+                  enough structure that nobody spends the first hour waiting for
+                  things to begin.
+                </p>
+              </div>
+            </article>
+
+            <article class="feature-box reveal">
+              <div class="feature-top">
+                <span>02</span>
+              </div>
+              <div class="feature-body">
+                <h3>Keep the momentum moving</h3>
+                <p>
+                  Food, conversation, photos, cake, and music each have their
+                  moment so the evening feels paced instead of accidental.
+                </p>
+              </div>
+            </article>
+
+            <article class="feature-box reveal">
+              <div class="feature-top">
+                <span>03</span>
+              </div>
+              <div class="feature-body">
+                <h3>Leave guests fully informed</h3>
+                <p>
+                  Date, venue, countdown, RSVP, and quick answers all live on
+                  one page, so sharing the event is simple and polished.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-white" id="schedule">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Schedule</p>
+            <h2>A clean flow from first arrival to late-night drift.</h2>
+            <p>
+              This keeps the evening feeling designed, while still leaving room
+              for spontaneity once the main moments land.
+            </p>
+          </div>
+
+          <div class="schedule-layout">
+            <div class="timeline">
+              <article class="timeline-item reveal highlight">
+                <span class="timeline-time">7:30 PM</span>
+                <div class="timeline-content">
+                  <h3>Doors open</h3>
+                  <p>Welcome drinks, first photos, and a relaxed arrival window.</p>
+                </div>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-time">8:15 PM</span>
+                <div class="timeline-content">
+                  <h3>Dinner and conversation</h3>
+                  <p>
+                    Good food, easy conversation, and enough time for everyone
+                    to settle into the room.
+                  </p>
+                </div>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-time">9:45 PM</span>
+                <div class="timeline-content">
+                  <h3>Games, photos, and music</h3>
+                  <p>
+                    The energy lifts, the soundtrack changes, and the evening
+                    starts feeling fully alive.
+                  </p>
+                </div>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-time">11:45 PM</span>
+                <div class="timeline-content">
+                  <h3>Cake and birthday toast</h3>
+                  <p>
+                    The signature moment: cameras ready, everyone close, and the
+                    whole room focused on one memory.
+                  </p>
+                </div>
+              </article>
+
+              <article class="timeline-item reveal">
+                <span class="timeline-time">Late</span>
+                <div class="timeline-content">
+                  <h3>Stay if you want</h3>
+                  <p>
+                    After the main beats are done, the night softens into music,
+                    conversation, and whatever comes next.
+                  </p>
+                </div>
+              </article>
+            </div>
+
+            <aside class="side-panel reveal">
+              <span class="side-label">Guest notes</span>
+              <h3 data-theme-label>Bold black, warm red, a little sparkle</h3>
+              <p>
+                Think smart casual with confidence. The page keeps the tone
+                event-like, but the mood of the actual night should stay easy,
+                warm, and social.
+              </p>
+              <ul class="list-check">
+                <li>Arrive in the first half hour if possible</li>
+                <li>Use the RSVP form for food preferences or allergies</li>
+                <li>Charge your phone before coming</li>
+                <li>Expect photos, cake, and a stronger late set</li>
+              </ul>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <section class="section venue-section" id="venue">
+        <div class="container venue-layout">
+          <div class="venue-copy reveal">
+            <div class="section-heading">
+              <p class="section-kicker">Venue</p>
+              <h2>The setting should carry the night with it.</h2>
+              <p>
+                Somewhere with enough room to move, enough atmosphere to matter,
+                and enough comfort that the evening can stretch naturally.
+              </p>
+            </div>
+
+            <div class="venue-meta">
+              <article>
+                <span>Venue</span>
+                <strong data-venue-name>The Loft Garden</strong>
+              </article>
+              <article>
+                <span>Address</span>
+                <strong data-address>Via Example 24, Rome, Italy</strong>
+              </article>
+              <article>
+                <span>City</span>
+                <strong data-city-label>Rome</strong>
+              </article>
+            </div>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#" data-map-link>Open map</a>
+              <button class="button button-dark-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+          </div>
+
+          <aside class="venue-panel reveal">
+            <span class="side-label">Before you arrive</span>
+            <h3>Keep the easy things easy.</h3>
+            <ul class="list-check">
+              <li>Let the host know about dietary needs ahead of time</li>
+              <li>Plan your route before leaving home</li>
+              <li>Bring the kind of outfit that works in photos</li>
+              <li>Stay for the cake moment if you can</li>
+            </ul>
+          </aside>
+        </div>
+      </section>
+
+      <section class="section section-white" id="faq">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">FAQ</p>
+            <h2>Clear answers, fewer messages.</h2>
+          </div>
+
+          <div class="faq-grid">
+            <details class="faq-card reveal" open>
+              <summary>Can I bring a plus-one?</summary>
+              <p>
+                If your invitation includes one, yes. If not, just ask first so
+                the planning stays accurate.
+              </p>
+            </details>
+
+            <details class="faq-card reveal">
+              <summary>Is there a dress code?</summary>
+              <p>
+                Smart casual with some intent. Black, red, metallic details, or
+                anything clean and party-ready fits the mood.
+              </p>
+            </details>
+
+            <details class="faq-card reveal">
+              <summary>What about food and drinks?</summary>
+              <p>
+                There will be food, drinks, and non-alcoholic options. Use the
+                RSVP note field for allergies or preferences.
+              </p>
+            </details>
+
+            <details class="faq-card reveal">
+              <summary>Should I bring a gift?</summary>
+              <p>
+                Presence matters more than presents. If you want to bring
+                something, keep it thoughtful and simple.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <section class="rsvp-section" id="rsvp">
+        <div class="container rsvp-layout">
+          <div class="rsvp-copy reveal">
+            <p class="section-kicker">RSVP</p>
+            <h2>Reply before <span data-rsvp-deadline>July 4, 2026</span>.</h2>
+            <p>
+              The form below opens a ready-to-send email draft, so the page is
+              usable immediately without a backend.
+            </p>
+            <p class="rsvp-contact">
+              Contact:
+              <a href="#" data-contact-link data-contact-email>and.adelfio@gmail.com</a>
+            </p>
+          </div>
+
+          <form class="rsvp-form reveal" id="rsvp-form">
+            <label>
+              Your name
+              <input type="text" name="name" placeholder="Alex Morgan" required />
+            </label>
+
+            <label>
+              Email address
+              <input
+                type="email"
+                name="email"
+                placeholder="alex@email.com"
+                required
+              />
+            </label>
+
+            <label>
+              Number of guests
+              <select name="guests" required>
+                <option value="1">Just me</option>
+                <option value="2">Me + 1</option>
+                <option value="3">Me + 2</option>
+              </select>
+            </label>
+
+            <label>
+              Dietary notes or message
+              <textarea
+                name="notes"
+                rows="4"
+                placeholder="Vegetarian, allergy details, or a short note for the host"
+              ></textarea>
+            </label>
+
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">
+                Send RSVP
+              </button>
+              <button class="button button-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+
+            <p class="form-status" id="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong data-event-name>Birthday Night</strong> for
+          <span data-host-name>Matteo</span>.
+        </p>
+        <p>Built with a cleaner TEDx-style event layout and ready to customize.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
