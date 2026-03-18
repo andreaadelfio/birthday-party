@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thank You | Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage thank-you-page lego-theme" data-thank-you-page>
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="brand" href="index.html" aria-label="Go to homepage">
+          <span class="brand-wordmark">
+            <span class="brand-accent">Birthday</span>
+            <span>Party</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav">
+          <a href="index.html#story">About</a>
+          <a class="nav-action" href="rsvp.html">Registration</a>
+          <a href="music.html">Music</a>
+          <a href="index.html#schedule">Schedule</a>
+          <a href="index.html#venue">Venue</a>
+          <a href="index.html#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="subpage-main">
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="subpage-copy reveal">
+            <p class="hero-kicker">Registration complete</p>
+            <h1>
+              Thanks,
+              <span class="hero-accent" data-thank-you-name>friend</span>.
+            </h1>
+            <p class="hero-date">
+              <time data-display-date datetime=""></time>
+            </p>
+            <p class="hero-venue">
+              <span data-display-time></span>
+              <span class="hero-separator">|</span>
+              <span data-venue-name></span>
+            </p>
+            <p class="hero-lead" data-thank-you-copy>
+              Your registration is saved successfully. You are officially on the
+              list for the party.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="index.html">Back to event page</a>
+              <a class="button button-dark-outline" href="music.html">Open music page</a>
+              <button class="button button-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="rsvp-section rsvp-page-section">
+        <div class="container rsvp-layout">
+          <div class="rsvp-copy reveal">
+            <p class="section-kicker">See you there</p>
+            <h2>Your RSVP is <span data-thank-you-mode>saved</span>.</h2>
+            <p>
+              We have your details and the event page stays available if you
+              want to double-check timing, venue, calendar invite, or music
+              plans.
+            </p>
+            <p class="rsvp-contact">
+              Contact:
+              <a href="#" data-contact-link data-contact-email></a>
+            </p>
+
+            <div class="rsvp-summary">
+              <article>
+                <span>Group</span>
+                <strong data-thank-you-group>To be confirmed</strong>
+              </article>
+              <article>
+                <span>Guests</span>
+                <strong data-thank-you-guests>To be confirmed</strong>
+              </article>
+              <article>
+                <span>Date</span>
+                <strong data-display-date></strong>
+              </article>
+              <article>
+                <span>Venue</span>
+                <strong data-venue-name></strong>
+              </article>
+            </div>
+
+            <div class="rsvp-info-grid">
+              <article class="rsvp-info-card">
+                <span>Next step</span>
+                <h3>Keep the invite handy.</h3>
+                <p>
+                  Save the calendar file now if you want the event to appear in
+                  your calendar right away.
+                </p>
+              </article>
+
+              <article class="rsvp-info-card">
+                <span>Music corner</span>
+                <h3>Want to jam?</h3>
+                <p>
+                  The music page lets players, singers, and guests organize jam
+                  sessions or mini live sets.
+                </p>
+              </article>
+            </div>
+          </div>
+
+          <aside class="rsvp-form thank-you-panel reveal" aria-label="Registration recap">
+            <p class="form-intro">Quick recap</p>
+
+            <div class="thank-you-detail-list">
+              <article class="thank-you-detail">
+                <strong>Address</strong>
+                <p data-address></p>
+              </article>
+
+              <article class="thank-you-detail">
+                <strong>Time</strong>
+                <p data-display-time></p>
+              </article>
+
+              <article class="thank-you-detail">
+                <strong>Map</strong>
+                <p>
+                  <a class="thank-you-inline-link" href="#" data-map-link>
+                    Open directions in Google Maps
+                  </a>
+                </p>
+              </article>
+            </div>
+
+            <p class="thank-you-note">
+              If plans change, you can submit the RSVP form again with the same
+              email to update your registration.
+            </p>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong>Birthday Night</strong> for
+          <span>Matteo</span>.
+        </p>
+        <p>Brick theme live, TEDx-inspired layout kept as the legacy version.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

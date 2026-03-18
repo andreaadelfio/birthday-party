@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
       rel="stylesheet"
     />
     <style>
@@ -23,7 +23,7 @@
     </style>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body>
+  <body class="lego-theme">
     <header class="site-header">
       <div class="container nav-shell">
         <a class="brand" href="#top" aria-label="Go to top">
@@ -47,48 +47,16 @@
 
         <nav class="site-nav" id="site-nav">
           <a href="#story">About</a>
-          <a href="#countdown">Countdown</a>
+          <a class="nav-action" href="rsvp.html">Registration</a>
+          <a href="music.html">Music</a>
           <a href="#schedule">Schedule</a>
           <a href="#venue">Venue</a>
           <a href="#faq">FAQ</a>
-          <a href="#rsvp">RSVP</a>
         </nav>
       </div>
     </header>
 
     <main id="top">
-
-      <section class="countdown-section" id="countdown">
-        <div class="container countdown-inner">
-          <div class="countdown-grid reveal" aria-label="Time until the event">
-            <div class="count-segment">
-              <span id="days">00</span>
-              <small>Days</small>
-            </div>
-            <div class="count-segment">
-              <span id="hours">00</span>
-              <small>Hours</small>
-            </div>
-            <div class="count-segment">
-              <span id="minutes">00</span>
-              <small>Minutes</small>
-            </div>
-            <div class="count-segment">
-              <span id="seconds">00</span>
-              <small>Seconds</small>
-            </div>
-          </div>
-          <!-- <div class="section-heading section-heading-center reveal">
-            <p class="section-kicker">Countdown</p>
-            <h2>The night gets closer every second.</h2>
-            <p>
-              Save it, plan it, and show up ready for the strongest moment of
-              the summer.
-            </p>
-          </div> -->
-
-        </div>
-      </section>
 
       <section class="hero">
         <div class="container hero-inner">
@@ -113,7 +81,7 @@
             </p>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="#rsvp">RSVP now</a>
+              <a class="button button-primary" href="rsvp.html">Register now</a>
               <a class="button button-dark-outline" href="#schedule">
                 View schedule
               </a>
@@ -154,9 +122,9 @@
             <p class="section-kicker">About the night</p>
             <h2>Structured like an event. Felt like a celebration.</h2>
             <p>
-              The reference is the sharp rhythm of a TEDx landing page: dark
-              hero, strong type, precise sections, and a clean event banner. The
-              content, though, is all birthday energy.
+              The original TEDx-inspired version now stays in the project as the
+              legacy theme. The live site leans into brighter brick colors,
+              glossy surfaces, and a more playful party identity.
             </p>
           </div>
 
@@ -195,8 +163,8 @@
               <div class="feature-body">
                 <h3>Leave guests fully informed</h3>
                 <p>
-                  Date, venue, countdown, RSVP, and quick answers all live on
-                  one page, so sharing the event is simple and polished.
+                  Date, venue, registration, and quick answers all live in one
+                  clear flow, so sharing the event stays simple and polished.
                 </p>
               </div>
             </article>
@@ -272,7 +240,7 @@
 
             <aside class="side-panel reveal">
               <span class="side-label">Guest notes</span>
-              <h3 data-theme-label>Bold black, warm red, a little sparkle</h3>
+              <h3 data-theme-label>Primary colors, glossy bricks, still organized</h3>
               <p>
                 Think smart casual with confidence. The page keeps the tone
                 event-like, but the mood of the actual night should stay easy,
@@ -337,6 +305,42 @@
         </div>
       </section>
 
+      <section class="section section-light music-promo-section" id="music">
+        <div class="container music-promo-shell">
+          <div class="music-promo-copy reveal">
+            <p class="section-kicker">Music</p>
+            <h2>A dedicated page for players, jams, and mini live sets.</h2>
+            <p>
+              Guests who play can now save instruments, styles, and genres in
+              the database, then use a shared music board to organize quick
+              sessions before the party starts.
+            </p>
+            <ul class="list-check">
+              <li>Share one or more instruments you can bring</li>
+              <li>Match people by style and genre preferences</li>
+              <li>Coordinate jam sessions and short performances</li>
+            </ul>
+          </div>
+
+          <aside class="music-promo-panel reveal">
+            <span class="side-label">Music Lab</span>
+            <h3>Lego visuals, live roster, playful energy.</h3>
+            <p>
+              The new page leans into a bold toy-like visual style while the
+              older TEDx-inspired direction remains available as a legacy base in
+              the project.
+            </p>
+
+            <div class="callout-actions">
+              <a class="button button-primary" href="music.html">Open music page</a>
+              <button class="button button-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+          </aside>
+        </div>
+      </section>
+
       <section class="section section-white" id="faq">
         <div class="container">
           <div class="section-heading reveal">
@@ -381,13 +385,14 @@
       </section>
 
       <section class="rsvp-section" id="rsvp">
-        <div class="container rsvp-layout">
-          <div class="rsvp-copy reveal">
-            <p class="section-kicker">RSVP</p>
-            <h2>Reply before <span data-rsvp-deadline>July 4, 2026</span>.</h2>
+        <div class="container rsvp-callout reveal">
+          <div class="rsvp-copy">
+            <p class="section-kicker">Registration</p>
+            <h2>Use the dedicated registration page to save your RSVP.</h2>
             <p>
-              The form below opens a ready-to-send email draft, so the page is
-              usable immediately without a backend.
+              Registrations are handled from a separate page with group
+              selection, new-group creation, and database-backed duplicate
+              protection using the guest email.
             </p>
             <p class="rsvp-contact">
               Contact:
@@ -395,51 +400,12 @@
             </p>
           </div>
 
-          <form class="rsvp-form reveal" id="rsvp-form">
-            <label>
-              Your name
-              <input type="text" name="name" placeholder="Alex Morgan" required />
-            </label>
-
-            <label>
-              Email address
-              <input
-                type="email"
-                name="email"
-                placeholder="alex@email.com"
-                required
-              />
-            </label>
-
-            <label>
-              Number of guests
-              <select name="guests" required>
-                <option value="1">Just me</option>
-                <option value="2">Me + 1</option>
-                <option value="3">Me + 2</option>
-              </select>
-            </label>
-
-            <label>
-              Dietary notes or message
-              <textarea
-                name="notes"
-                rows="4"
-                placeholder="Vegetarian, allergy details, or a short note for the host"
-              ></textarea>
-            </label>
-
-            <div class="form-actions">
-              <button class="button button-primary" type="submit">
-                Send RSVP
-              </button>
-              <button class="button button-outline" type="button" data-download-ics>
-                Add to calendar
-              </button>
-            </div>
-
-            <p class="form-status" id="form-status" aria-live="polite"></p>
-          </form>
+          <div class="callout-actions">
+            <a class="button button-primary" href="rsvp.html">Open registration</a>
+            <button class="button button-outline" type="button" data-download-ics>
+              Add to calendar
+            </button>
+          </div>
         </div>
       </section>
     </main>
@@ -450,7 +416,7 @@
           <strong data-event-name>Birthday Night</strong> for
           <span data-host-name>Matteo</span>.
         </p>
-        <p>Built with a cleaner TEDx-style event layout and ready to customize.</p>
+        <p>Brick theme live, TEDx-inspired layout kept as the legacy version.</p>
       </div>
     </footer>
 

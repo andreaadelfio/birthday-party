@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP | Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        /* Uncomment these when you add real background photos. */
+        /* --hero-bg-image: url("images/hero.jpg"); */
+        /* --countdown-bg-image: url("images/countdown.jpg"); */
+        /* --venue-bg-image: url("images/venue.jpg"); */
+      }
+    </style>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage lego-theme">
+    <header class="site-header">
+      <div class="container nav-shell">
+        <a class="brand" href="index.html" aria-label="Go to homepage">
+          <span class="brand-wordmark">
+            <span class="brand-accent" data-host-initial>Birthday</span>
+            <span data-event-name>PARTY</span>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="Toggle navigation"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav">
+          <a href="index.html#story">About</a>
+          <a class="nav-action" href="rsvp.html">Registration</a>
+          <a href="music.html">Music</a>
+          <a href="index.html#schedule">Schedule</a>
+          <a href="index.html#venue">Venue</a>
+          <a href="index.html#faq">FAQ</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="subpage-main">
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="subpage-copy reveal">
+            <p class="hero-kicker">Registration</p>
+            <!-- <h1>
+              Confirm your place for
+              <span class="hero-accent"><span data-host-name>Matteo</span>'s</span>
+              <span data-event-name>Birthday Night</span>
+            </h1> -->
+            <p class="hero-date">
+              <time data-display-date datetime=""></time>
+            </p>
+            <p class="hero-venue">
+              <span data-display-time></span>
+              <span class="hero-separator">|</span>
+              <span data-venue-name></span>
+            </p>
+            <!-- <p class="hero-lead">
+              This page saves registrations to Supabase, keeps each email unique,
+              and lets guests either join an existing friends group or create a
+              new one directly during signup.
+            </p> -->
+          </div>
+        </div>
+      </section>
+
+      <section class="rsvp-section rsvp-page-section">
+        <div class="container rsvp-layout">
+          <div class="rsvp-copy reveal">
+            <p class="section-kicker">Before you send it</p>
+            <h2>Reply before <span data-rsvp-deadline>July 4, 2026</span>.</h2>
+            <!-- <p>
+              Share your attendance, guest count, dietary notes, and group
+              preference so the evening can be planned properly.
+            </p> -->
+            <p class="rsvp-contact">
+              Contact:
+              <a href="#" data-contact-link data-contact-email></a>
+            </p>
+
+            <div class="rsvp-summary">
+              <article>
+                <span>Date</span>
+                <strong data-display-date></strong>
+              </article>
+              <article>
+                <span>Time</span>
+                <strong data-display-time></strong>
+              </article>
+              <article>
+                <span>Venue</span>
+                <strong data-venue-name></strong>
+              </article>
+              <article>
+                <span>Address</span>
+                <strong data-address></strong>
+              </article>
+            </div>
+
+            <div class="rsvp-info-grid">
+
+              <article class="rsvp-info-card">
+                <span>Friend groups</span>
+                <h3>Join a group or make a new one!</h3>
+                <p>
+                  Guests can pick a group to ease organization, or create a new group during
+                  registration.
+                </p>
+              </article>
+            </div>
+
+            <div class="hero-actions">
+              <a class="button button-dark-outline" href="index.html#schedule">
+                Back to event page
+              </a>
+              <a class="button button-primary" href="music.html">
+                Open music page
+              </a>
+              <button class="button button-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+          </div>
+
+          <form class="rsvp-form reveal" id="rsvp-form">
+            <!-- <p class="form-intro">
+              Save your registration directly to the event database.
+            </p> -->
+
+            <div class="name-grid">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Alex" required />
+              </label>
+
+              <label>
+                Surname
+                <input type="text" name="surname" placeholder="Morgan" required />
+              </label>
+            </div>
+
+            <label>
+              Email address
+              <input
+                type="email"
+                name="email"
+                placeholder="alex@email.com"
+                required
+              />
+            </label>
+
+            <fieldset class="group-mode">
+              <legend>Group registration</legend>
+              <label class="mode-option">
+                <input type="radio" name="group_mode" value="existing" checked />
+                <span>Join an existing group</span>
+              </label>
+              <label class="mode-option">
+                <input type="radio" name="group_mode" value="create" />
+                <span>Create a new group</span>
+              </label>
+            </fieldset>
+
+            <label>
+              Choose a group
+              <select name="group_slug" id="group-slug" required></select>
+            </label>
+
+            <label data-new-group-field hidden>
+              New group name
+              <input
+                type="text"
+                name="new_group_name"
+                placeholder="Friends from Milan"
+              />
+            </label>
+
+            <label>
+              Number of guests
+              <select name="guests" required>
+                <option value="1">Just me</option>
+                <option value="2">Me + 1</option>
+                <option value="3">Me + 2</option>
+              </select>
+            </label>
+
+            <label>
+              Message or dietary notes 
+              <textarea
+                name="notes"
+                rows="4"
+                placeholder="Vegetarian, allergy details, or a short note for the host"
+              ></textarea>
+            </label>
+
+            <p class="form-hint">
+              Using the same email again will update the existing registration.
+            </p>
+
+            <div class="form-actions">
+              <button class="button button-primary" type="submit">
+                Save registration
+              </button>
+              <button class="button button-outline" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div>
+
+            <p class="form-status" id="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <p>
+          <strong data-event-name>Birthday Night</strong> for
+          <span data-host-name>Matteo</span>.
+        </p>
+        <p>Brick theme live, TEDx-inspired layout kept as the legacy version.</p>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
