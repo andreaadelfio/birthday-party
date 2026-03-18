@@ -1,87 +1,69 @@
-// Central event settings: update these values to personalize the whole page quickly.
-const partyConfig = {
-  hostName: "Matteo",
-  eventName: "Birthday Night",
-  eventTagline: "Big-stage energy. Birthday-level joy.",
+const eventDetails = {
   isoDate: "2026-07-30T19:30:00+02:00",
-  displayDate: "Friday, July 30, 2026",
+  displayDate: "Thursday, July 30, 2026",
   displayTime: "7:30 PM until late",
-  venueName: "My garden",
-  address: "Via Example !!! 24, Ficarazzi, Italy",
-  cityLabel: "Ficarazzi",
-  rsvpDeadline: "July 4, 2026",
-  contactEmail: "and.adelfio@gmail.com",
-  mapQuery: "Via Example 24, Ficarazzi, Italy",
-  eventDurationHours: 6,
-  backgroundImages: {
-    hero: {
-      url: "",
-      position: "center center"
-    },
-    countdown: {
-      url: "",
-      position: "center center"
-    },
-    venue: {
-      url: "",
-      position: "center center"
-    }
-  }
+  durationHours: 6,
+  venueName: "Ficarazzi",
+  address: "Via Example 24, Rome, Italy",
+  contactEmail: "and.adelfio@gmail.com"
 };
 
-const textBindings = [
-  ["[data-host-name]", partyConfig.hostName],
-  ["[data-event-name]", partyConfig.eventName],
-  ["[data-display-date]", partyConfig.displayDate],
-  ["[data-display-time]", partyConfig.displayTime],
-  ["[data-venue-name]", partyConfig.venueName],
-  ["[data-address]", partyConfig.address],
-  ["[data-city-label]", partyConfig.cityLabel],
-  ["[data-rsvp-deadline]", partyConfig.rsvpDeadline],
-  ["[data-contact-email]", partyConfig.contactEmail]
-];
+const eventDateElement = document.querySelector("time[data-display-date]");
+const contactLink = document.querySelector("[data-contact-link]");
+const countdownTargets = {
+  days: document.getElementById("days"),
+  hours: document.getElementById("hours"),
+  minutes: document.getElementById("minutes"),
+  seconds: document.getElementById("seconds")
+};
+const form = document.getElementById("rsvp-form");
+const status = document.getElementById("form-status");
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelectorAll(".site-nav a");
+const siteHeader = document.querySelector(".site-header");
 
-textBindings.forEach(([selector, value]) => {
-  document.querySelectorAll(selector).forEach((node) => {
-    node.textContent = value;
-  });
+const hostName =
+  document.querySelector(".hero [data-host-name]")?.textContent.trim() || "Host";
+const eventName =
+  document.querySelector(".hero [data-event-name]")?.textContent.trim() || "Event";
+const displayDate = eventDetails.displayDate;
+const displayTime = eventDetails.displayTime;
+const eventDate = new Date(eventDetails.isoDate);
+const eventDurationHours = eventDetails.durationHours;
+const venueName = eventDetails.venueName;
+const address = eventDetails.address;
+const contactEmail = eventDetails.contactEmail;
+
+document.querySelectorAll("[data-display-date]").forEach((node) => {
+  node.textContent = displayDate;
 });
 
-const hostInitial = document.querySelector("[data-host-initial]");
-if (hostInitial) {
-  hostInitial.textContent = partyConfig.hostName.charAt(0).toUpperCase();
+document.querySelectorAll("[data-display-time]").forEach((node) => {
+  node.textContent = displayTime;
+});
+
+if (eventDateElement) {
+  eventDateElement.dateTime = eventDetails.isoDate;
 }
 
-document.title = `${partyConfig.hostName}'s ${partyConfig.eventName}`;
+document.querySelectorAll("[data-venue-name]").forEach((node) => {
+  node.textContent = venueName;
+});
 
-function escapeCssUrl(url) {
-  return String(url).replace(/["\\]/g, "\\$&");
+document.querySelectorAll("[data-address]").forEach((node) => {
+  node.textContent = address;
+});
+
+document.querySelectorAll("[data-contact-email]").forEach((node) => {
+  node.textContent = contactEmail;
+});
+
+if (contactLink) {
+  contactLink.href = `mailto:${contactEmail}`;
 }
-
-function applyBackgroundImage(sectionName, config) {
-  if (!config || !config.url) {
-    return;
-  }
-
-  document.documentElement.style.setProperty(
-    `--${sectionName}-bg-image`,
-    `url("${escapeCssUrl(config.url)}")`
-  );
-
-  if (config.position) {
-    document.documentElement.style.setProperty(
-      `--${sectionName}-bg-position`,
-      config.position
-    );
-  }
-}
-
-applyBackgroundImage("hero", partyConfig.backgroundImages.hero);
-applyBackgroundImage("countdown", partyConfig.backgroundImages.countdown);
-applyBackgroundImage("venue", partyConfig.backgroundImages.venue);
 
 const mapUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-  partyConfig.mapQuery
+  address
 )}`;
 
 document.querySelectorAll("[data-map-link]").forEach((link) => {
@@ -90,21 +72,11 @@ document.querySelectorAll("[data-map-link]").forEach((link) => {
   link.rel = "noreferrer";
 });
 
-const contactLink = document.querySelector("[data-contact-link]");
-if (contactLink) {
-  contactLink.href = `mailto:${partyConfig.contactEmail}`;
-}
-
-const countdownTargets = {
-  days: document.getElementById("days"),
-  hours: document.getElementById("hours"),
-  minutes: document.getElementById("minutes"),
-  seconds: document.getElementById("seconds")
-};
-
-const eventDate = new Date(partyConfig.isoDate);
-
 function updateCountdown() {
+  if (!eventDate || Number.isNaN(eventDate.getTime())) {
+    return;
+  }
+
   const now = new Date();
   const difference = eventDate.getTime() - now.getTime();
 
@@ -127,8 +99,10 @@ function updateCountdown() {
   countdownTargets.seconds.textContent = String(seconds).padStart(2, "0");
 }
 
-updateCountdown();
-window.setInterval(updateCountdown, 1000);
+if (countdownTargets.days && eventDate && !Number.isNaN(eventDate.getTime())) {
+  updateCountdown();
+  window.setInterval(updateCountdown, 1000);
+}
 
 function toICSDate(date) {
   return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}Z$/, "Z");
@@ -143,8 +117,12 @@ function escapeICS(text) {
 }
 
 function downloadCalendarInvite() {
+  if (!eventDate || Number.isNaN(eventDate.getTime())) {
+    return;
+  }
+
   const endDate = new Date(
-    eventDate.getTime() + partyConfig.eventDurationHours * 60 * 60 * 1000
+    eventDate.getTime() + eventDurationHours * 60 * 60 * 1000
   );
 
   const icsContent = [
@@ -156,10 +134,10 @@ function downloadCalendarInvite() {
     `DTSTAMP:${toICSDate(new Date())}`,
     `DTSTART:${toICSDate(eventDate)}`,
     `DTEND:${toICSDate(endDate)}`,
-    `SUMMARY:${escapeICS(`${partyConfig.hostName}'s ${partyConfig.eventName}`)}`,
-    `LOCATION:${escapeICS(partyConfig.address)}`,
+    `SUMMARY:${escapeICS(`${hostName}'s ${eventName}`)}`,
+    `LOCATION:${escapeICS(address)}`,
     `DESCRIPTION:${escapeICS(
-      `Join ${partyConfig.hostName} for a birthday celebration at ${partyConfig.venueName}.`
+      `Join ${hostName} for a birthday celebration at ${venueName}.`
     )}`,
     "END:VEVENT",
     "END:VCALENDAR"
@@ -169,7 +147,7 @@ function downloadCalendarInvite() {
   const url = URL.createObjectURL(blob);
   const link = document.createElement("a");
   link.href = url;
-  link.download = `${partyConfig.hostName.toLowerCase()}-birthday.ics`;
+  link.download = `${hostName.toLowerCase().replace(/\s+/g, "-")}-birthday.ics`;
   document.body.append(link);
   link.click();
   link.remove();
@@ -179,9 +157,6 @@ function downloadCalendarInvite() {
 document.querySelectorAll("[data-download-ics]").forEach((button) => {
   button.addEventListener("click", downloadCalendarInvite);
 });
-
-const form = document.getElementById("rsvp-form");
-const status = document.getElementById("form-status");
 
 if (form && status) {
   form.addEventListener("submit", (event) => {
@@ -198,9 +173,14 @@ if (form && status) {
       return;
     }
 
-    const subject = `RSVP for ${partyConfig.hostName}'s ${partyConfig.eventName}`;
+    if (!contactEmail) {
+      status.textContent = "Add a contact email in the HTML first.";
+      return;
+    }
+
+    const subject = `RSVP for ${hostName}'s ${eventName}`;
     const body = [
-      `Hi ${partyConfig.hostName},`,
+      `Hi ${hostName},`,
       "",
       `I'd love to join your party.`,
       `Name: ${name}`,
@@ -208,10 +188,10 @@ if (form && status) {
       `Guests: ${guests}`,
       `Message: ${notes || "No additional notes"}`,
       "",
-      `See you on ${partyConfig.displayDate}.`
+      `See you on ${displayDate}.`
     ].join("\n");
 
-    window.location.href = `mailto:${partyConfig.contactEmail}?subject=${encodeURIComponent(
+    window.location.href = `mailto:${contactEmail}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
 
@@ -220,10 +200,6 @@ if (form && status) {
     form.reset();
   });
 }
-
-const navToggle = document.querySelector(".nav-toggle");
-const navLinks = document.querySelectorAll(".site-nav a");
-const siteHeader = document.querySelector(".site-header");
 
 function syncHeaderState() {
   siteHeader?.classList.toggle("is-scrolled", window.scrollY > 24);
