@@ -58,6 +58,10 @@ img {
   max-width: 100%;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 .container {
   width: var(--container);
   margin: 0 auto;
@@ -1089,51 +1093,6 @@ img {
 .rsvp-form textarea:disabled {
   background: #f2f2f2;
   cursor: not-allowed;
-}
-
-.group-mode {
-  margin: 0 0 16px;
-  padding: 0;
-  border: 0;
-}
-
-.group-mode legend {
-  margin-bottom: 10px;
-  color: var(--text);
-  font-family: "Catamaran", sans-serif;
-  font-size: 0.9rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.group-mode {
-  display: grid;
-  gap: 10px;
-}
-
-.mode-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 14px 16px;
-  border: 1px solid rgba(0, 0, 0, 0.13);
-  background: #fafafa;
-  cursor: pointer;
-}
-
-.mode-option input {
-  width: auto;
-  margin: 0;
-}
-
-.mode-option span {
-  color: var(--text);
-  font-family: "Catamaran", sans-serif;
-  font-size: 0.92rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
 }
 
 .form-hint {

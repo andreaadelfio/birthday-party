@@ -14,9 +14,6 @@ dev:
 	python3 -m http.server "$(PORT)" --bind "$(HOST)" --directory "$(SITE_DIR)" >/dev/null 2>&1 &
 	open "http://$(HOST):$(PORT)"
 
-test-rsvp-select:
-	node scripts/test-rsvp-select.mjs
-
 smoke-rsvp-db:
 	node scripts/smoke-supabase-rsvp.mjs
 

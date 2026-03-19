@@ -12,13 +12,6 @@ const eventDetails = {
   contactEmail: "and.adelfio@gmail.com"
 };
 
-const starterGroups = [
-  { slug: "default", name: "Default" },
-  { slug: "triestini", name: "Triestini" },
-  { slug: "palermitani", name: "Palermitani" },
-  { slug: "munichers", name: "Munichers" }
-];
-
 const supabaseConfig = window.SUPABASE_CONFIG ?? null;
 
 const eventDate = new Date(eventDetails.isoDate);
@@ -34,10 +27,6 @@ const form = document.getElementById("rsvp-form");
 const status = document.getElementById("form-status");
 const submitButton = form?.querySelector('button[type="submit"]') || null;
 const groupSelect = document.getElementById("group-slug");
-const existingGroupField = document.querySelector("[data-existing-group-field]");
-const groupModeInputs = document.querySelectorAll('input[name="group_mode"]');
-const newGroupField = document.querySelector("[data-new-group-field]");
-const newGroupInput = form?.querySelector('input[name="new_group_name"]') || null;
 const sharedHeaderMount = document.querySelector("[data-site-header]");
 const sharedFooterMount = document.querySelector("[data-site-footer]");
 const musicForm = document.getElementById("music-form");
@@ -427,67 +416,53 @@ function setFormBusy(isBusy) {
   submitButton.textContent = isBusy ? "Sending..." : "Send RSVP";
 }
 
+function normalizeGroups(groups) {
+  return (Array.isArray(groups) ? groups : [])
+    .filter((group) => group?.slug && group?.name)
+    .map((group) => ({
+      slug: String(group.slug).trim(),
+      name: String(group.name).trim()
+    }))
+    .filter((group) => group.slug && group.name);
+}
+
+function renderGroupPlaceholder(message, disabled = true) {
+  if (!groupSelect) {
+    return;
+  }
+
+  groupSelect.innerHTML = `<option value="" selected>${message}</option>`;
+  groupSelect.value = "";
+  groupSelect.disabled = disabled;
+}
+
 function renderGroupOptions(groups) {
   if (!groupSelect) {
     return;
   }
 
-  const safeGroups = (Array.isArray(groups) ? groups : [])
-    .filter((group) => group?.slug && group?.name)
-    .map((group) => ({
-      slug: String(group.slug).trim(),
-      name: String(group.name).trim()
-    }));
+  const availableGroups = normalizeGroups(groups);
 
-  const availableGroups = safeGroups.length ? safeGroups : starterGroups;
-  const previousValue = String(groupSelect.value || "").trim();
-
-  groupSelect.innerHTML = availableGroups
-    .map(
-      (group) =>
-        `<option value="${group.slug}">${group.name}</option>`
-    )
-    .join("");
-
-  const nextValue = availableGroups.some((group) => group.slug === previousValue)
-    ? previousValue
-    : availableGroups.some((group) => group.slug === "default")
-      ? "default"
-      : availableGroups[0]?.slug || "";
-
-  groupSelect.value = nextValue;
-}
-
-function syncGroupMode() {
-  if (
-    !groupModeInputs.length ||
-    !newGroupField ||
-    !newGroupInput ||
-    !groupSelect ||
-    !existingGroupField
-  ) {
+  if (!availableGroups.length) {
+    renderGroupPlaceholder("No groups available", true);
     return;
   }
 
-  const selectedMode =
-    document.querySelector('input[name="group_mode"]:checked')?.value || "existing";
-  const isCreatingGroup = selectedMode === "create";
-
-  existingGroupField.hidden = isCreatingGroup;
-  newGroupField.hidden = !isCreatingGroup;
-  newGroupInput.required = isCreatingGroup;
-  newGroupInput.disabled = !isCreatingGroup;
-  groupSelect.required = !isCreatingGroup;
-  groupSelect.disabled = isCreatingGroup;
-
-  if (!isCreatingGroup) {
-    newGroupInput.value = "";
-  }
+  groupSelect.innerHTML = [
+    '<option value="" selected>Choose a group</option>',
+    ...availableGroups.map(
+      (group) => `<option value="${group.slug}">${group.name}</option>`
+    )
+  ].join("");
+  groupSelect.value = "";
+  groupSelect.disabled = false;
 }
 
 async function fetchGuestGroups(client) {
   if (!client) {
-    return starterGroups;
+    throw new Error(
+      "Add your Supabase publishable key in supabase-config.js to load the guest groups."
+    );
   }
 
   const { data, error } = await client
@@ -497,14 +472,10 @@ async function fetchGuestGroups(client) {
     .order("name", { ascending: true });
 
   if (error) {
-    setFormStatus(
-      "Could not load groups from Supabase yet. Apply the SQL schema first, then refresh.",
-      "warning"
-    );
-    return starterGroups;
+    throw error;
   }
 
-  return data?.length ? data : starterGroups;
+  return normalizeGroups(data);
 }
 
 function resolveSupabaseError(error) {
@@ -870,24 +841,36 @@ async function setupMusicPage() {
 }
 
 async function setupRegistrationForm() {
-  if (!form || !status) {
+  if (!form) {
     return;
   }
 
   const client = createSupabaseClient();
-
-  groupModeInputs.forEach((input) => {
-    input.addEventListener("change", syncGroupMode);
-  });
-  syncGroupMode();
-
-  renderGroupOptions(await fetchGuestGroups(client));
+  if (submitButton) {
+    submitButton.disabled = true;
+  }
+  renderGroupPlaceholder("Loading groups...");
 
   if (!client) {
     setFormStatus(
       "Add your Supabase publishable key in supabase-config.js to enable live registrations.",
       "warning"
     );
+    if (submitButton) {
+      submitButton.disabled = true;
+    }
+    return;
+  }
+
+  try {
+    renderGroupOptions(await fetchGuestGroups(client));
+    if (submitButton) {
+      submitButton.disabled = false;
+    }
+    setFormStatus("Choose your group, then send your RSVP.", "muted");
+  } catch (error) {
+    renderGroupPlaceholder("Could not load groups");
+    setFormStatus(resolveSupabaseError(error), "warning");
     if (submitButton) {
       submitButton.disabled = true;
     }
@@ -901,19 +884,18 @@ async function setupRegistrationForm() {
     const firstName = String(formData.get("name") || "").trim();
     const surname = String(formData.get("surname") || "").trim();
     const email = String(formData.get("email") || "").trim().toLowerCase();
+    const groupSlug = String(formData.get("group_slug") || "").trim();
     const guestsCount = Number(formData.get("guests") || 1);
     const notes = String(formData.get("notes") || "").trim();
-    const groupMode = String(formData.get("group_mode") || "existing");
-    const groupSlug = String(formData.get("group_slug") || "default");
-    const newGroupName = String(formData.get("new_group_name") || "").trim();
 
     if (!firstName || !surname || !email) {
       setFormStatus("Name, surname, and email are required.", "error");
       return;
     }
 
-    if (groupMode === "create" && !newGroupName) {
-      setFormStatus("Write the name of the new group first.", "error");
+    if (!groupSlug) {
+      setFormStatus("Choose a group first.", "error");
+      groupSelect?.focus();
       return;
     }
 
@@ -926,8 +908,8 @@ async function setupRegistrationForm() {
       p_email: email,
       p_guests_count: guestsCount,
       p_notes: notes || null,
-      p_group_slug: groupMode === "existing" ? groupSlug : "default",
-      p_new_group_name: groupMode === "create" ? newGroupName : null
+      p_group_slug: groupSlug,
+      p_new_group_name: null
     });
 
     if (error) {
@@ -938,21 +920,19 @@ async function setupRegistrationForm() {
 
     const savedRegistration = Array.isArray(data) ? data[0] : data;
     const savedMode = savedRegistration?.saved_mode === "updated" ? "updated" : "saved";
-    const savedGroup = savedRegistration?.group_name
-      ? ` in ${savedRegistration.group_name}`
-      : "";
+    const groupName =
+      savedRegistration?.group_name ||
+      groupSelect?.selectedOptions?.[0]?.textContent.trim() ||
+      "";
     const thankYouUrl = buildThankYouUrl({
       firstName,
-      groupName:
-        savedRegistration?.group_name ||
-        (groupMode === "create"
-          ? newGroupName
-          : groupSelect?.selectedOptions?.[0]?.textContent.trim() || ""),
+      groupName,
       guestsCount,
       savedMode
     });
 
     setFormBusy(false);
+    const savedGroup = groupName ? ` in ${groupName}` : "";
     setFormStatus(
       savedMode === "updated"
         ? `RSVP updated${savedGroup}. Opening confirmation page...`

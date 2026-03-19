@@ -13,14 +13,6 @@
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        /* Uncomment these when you add real background photos. */
-        /* --hero-bg-image: url("images/hero.jpg"); */
-        /* --countdown-bg-image: url("images/countdown.jpg"); */
-        /* --venue-bg-image: url("images/venue.jpg"); */
-      }
-    </style>
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="subpage lego-theme" data-nav-current="registration">
@@ -55,12 +47,11 @@
             </div>
 
             <div class="rsvp-info-grid">
-
               <article class="rsvp-info-card">
                 <span>Groups</span>
-                <h3>Join or create one.</h3>
+                <h3>Pick yours from the list.</h3>
                 <p>
-                  If you are coming with a group, let us know in the registration.
+                  Start by choosing one of the groups already available in the database.
                 </p>
               </article>
             </div>
@@ -101,30 +92,11 @@
               />
             </label>
 
-            <fieldset class="group-mode">
-              <legend>Group registration</legend>
-              <label class="mode-option">
-                <input type="radio" name="group_mode" value="existing" checked />
-                <span>Join an existing group</span>
-              </label>
-              <label class="mode-option">
-                <input type="radio" name="group_mode" value="create" />
-                <span>Create a new group</span>
-              </label>
-            </fieldset>
-
-            <label data-existing-group-field>
-              Choose a group
-              <select name="group_slug" id="group-slug" required></select>
-            </label>
-
-            <label data-new-group-field hidden>
-              New group name
-              <input
-                type="text"
-                name="new_group_name"
-                placeholder="Friends from Milan"
-              />
+            <label>
+              Group
+              <select name="group_slug" id="group-slug" disabled>
+                <option value="" selected>Loading groups...</option>
+              </select>
             </label>
 
             <label>
@@ -137,7 +109,7 @@
             </label>
 
             <label>
-              Message or dietary notes 
+              Message or dietary notes
               <textarea
                 name="notes"
                 rows="4"
@@ -146,7 +118,7 @@
             </label>
 
             <p class="form-hint">
-              If you need to update your info, just send the form again with the same email with the new info.
+              If you need to update your info, send the form again with the same email.
             </p>
 
             <div class="form-actions">
@@ -157,6 +129,8 @@
                 Add to calendar
               </button>
             </div>
+
+            <p class="form-status" id="form-status" aria-live="polite"></p>
           </form>
         </div>
       </section>
