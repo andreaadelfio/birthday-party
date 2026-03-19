@@ -15,44 +15,14 @@
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="subpage thank-you-page lego-theme" data-thank-you-page>
-    <header class="site-header">
-      <div class="container nav-shell">
-        <a class="brand" href="index.html" aria-label="Go to homepage">
-          <span class="brand-wordmark">
-            <span class="brand-accent">Birthday</span>
-            <span>Party</span>
-          </span>
-        </a>
-
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          aria-label="Toggle navigation"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav class="site-nav" id="site-nav">
-          <a href="index.html#story">About</a>
-          <a class="nav-action" href="rsvp.html">Registration</a>
-          <a href="music.html">Music</a>
-          <a href="index.html#schedule">Schedule</a>
-          <a href="index.html#venue">Venue</a>
-          <a href="index.html#faq">FAQ</a>
-        </nav>
-      </div>
-    </header>
+  <body class="subpage thank-you-page lego-theme" data-thank-you-page data-nav-current="registration">
+    <div data-site-header></div>
 
     <main class="subpage-main">
       <section class="subpage-hero">
         <div class="container subpage-hero-inner">
           <div class="subpage-copy reveal">
-            <p class="hero-kicker">Registration complete</p>
+            <p class="hero-kicker">RSVP received</p>
             <h1>
               Thanks,
               <span class="hero-accent" data-thank-you-name>friend</span>.
@@ -66,14 +36,13 @@
               <span data-venue-name></span>
             </p>
             <p class="hero-lead" data-thank-you-copy>
-              Your registration is saved successfully. You are officially on the
-              list for the party.
+              We have your RSVP.
             </p>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="index.html">Back to event page</a>
-              <a class="button button-dark-outline" href="music.html">Open music page</a>
-              <button class="button button-outline" type="button" data-download-ics>
+              <a class="button button-primary brick-6" href="index.html">Back to event page</a>
+              <a class="button button-dark-outline brick-5" href="music.html">Open music page</a>
+              <button class="button button-outline brick-5" type="button" data-download-ics>
                 Add to calendar
               </button>
             </div>
@@ -84,12 +53,11 @@
       <section class="rsvp-section rsvp-page-section">
         <div class="container rsvp-layout">
           <div class="rsvp-copy reveal">
-            <p class="section-kicker">See you there</p>
-            <h2>Your RSVP is <span data-thank-you-mode>saved</span>.</h2>
+            <p class="section-kicker">All set</p>
+            <h2>Your RSVP is <span data-thank-you-mode>confirmed</span>.</h2>
             <p>
-              We have your details and the event page stays available if you
-              want to double-check timing, venue, calendar invite, or music
-              plans.
+              If you need to check the details again, the event page and the
+              music page are still here.
             </p>
             <p class="rsvp-contact">
               Contact:
@@ -99,11 +67,11 @@
             <div class="rsvp-summary">
               <article>
                 <span>Group</span>
-                <strong data-thank-you-group>To be confirmed</strong>
+                <strong data-thank-you-group>Not specified</strong>
               </article>
               <article>
                 <span>Guests</span>
-                <strong data-thank-you-guests>To be confirmed</strong>
+                <strong data-thank-you-guests>Not specified</strong>
               </article>
               <article>
                 <span>Date</span>
@@ -117,27 +85,26 @@
 
             <div class="rsvp-info-grid">
               <article class="rsvp-info-card">
-                <span>Next step</span>
-                <h3>Keep the invite handy.</h3>
+                <span>Calendar</span>
+                <h3>Want a reminder?</h3>
                 <p>
-                  Save the calendar file now if you want the event to appear in
-                  your calendar right away.
+                  Download the calendar file and you are done.
                 </p>
               </article>
 
               <article class="rsvp-info-card">
-                <span>Music corner</span>
+                <span>Music</span>
                 <h3>Want to jam?</h3>
                 <p>
-                  The music page lets players, singers, and guests organize jam
-                  sessions or mini live sets.
+                  The music page is there if you want to join a jam or a small
+                  set.
                 </p>
               </article>
             </div>
           </div>
 
           <aside class="rsvp-form thank-you-panel reveal" aria-label="Registration recap">
-            <p class="form-intro">Quick recap</p>
+            <p class="form-intro">Useful details</p>
 
             <div class="thank-you-detail-list">
               <article class="thank-you-detail">
@@ -161,23 +128,14 @@
             </div>
 
             <p class="thank-you-note">
-              If plans change, you can submit the RSVP form again with the same
-              email to update your registration.
+              If something changes, send the RSVP form again with the same email.
             </p>
           </aside>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>
-          <strong>Birthday Night</strong> for
-          <span>Matteo</span>.
-        </p>
-        <p>Brick theme live, TEDx-inspired layout kept as the legacy version.</p>
-      </div>
-    </footer>
+    <div data-site-footer></div>
 
     <script src="script.js"></script>
   </body>

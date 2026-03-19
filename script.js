@@ -34,12 +34,12 @@ const form = document.getElementById("rsvp-form");
 const status = document.getElementById("form-status");
 const submitButton = form?.querySelector('button[type="submit"]') || null;
 const groupSelect = document.getElementById("group-slug");
+const existingGroupField = document.querySelector("[data-existing-group-field]");
 const groupModeInputs = document.querySelectorAll('input[name="group_mode"]');
 const newGroupField = document.querySelector("[data-new-group-field]");
 const newGroupInput = form?.querySelector('input[name="new_group_name"]') || null;
-const navToggle = document.querySelector(".nav-toggle");
-const navLinks = document.querySelectorAll(".site-nav a");
-const siteHeader = document.querySelector(".site-header");
+const sharedHeaderMount = document.querySelector("[data-site-header]");
+const sharedFooterMount = document.querySelector("[data-site-footer]");
 const musicForm = document.getElementById("music-form");
 const musicStatus = document.getElementById("music-status");
 const musicBoard = document.getElementById("music-board");
@@ -58,6 +58,9 @@ const musicStageTargets = [
 ];
 
 let musicStageActive = false;
+let navToggle = null;
+let navLinks = [];
+let siteHeader = null;
 
 function setText(selector, value) {
   document.querySelectorAll(selector).forEach((node) => {
@@ -97,7 +100,7 @@ function formatGuestAttendance(guestsCount) {
   const count = Number(guestsCount);
 
   if (!Number.isFinite(count) || count <= 0) {
-    return "To be confirmed";
+    return "Not specified";
   }
 
   if (count === 1) {
@@ -139,16 +142,17 @@ function populateThankYouPage() {
   const params = new URLSearchParams(window.location.search);
   const firstName = String(params.get("name") || "friend").trim() || "friend";
   const savedMode = params.get("mode") === "updated" ? "updated" : "saved";
+  const savedModeLabel = savedMode === "updated" ? "updated" : "confirmed";
   const groupName =
-    String(params.get("group") || "To be confirmed").trim() || "To be confirmed";
+    String(params.get("group") || "Not specified").trim() || "Not specified";
   const guestsLabel = formatGuestAttendance(params.get("guests"));
   const thankYouCopy =
     savedMode === "updated"
-      ? "Your registration was updated successfully. Everything is synced for the party."
-      : "Your registration is saved successfully. You are officially on the list for the party.";
+      ? "We updated your RSVP."
+      : "We have your RSVP.";
 
   setText("[data-thank-you-name]", firstName);
-  setText("[data-thank-you-mode]", savedMode);
+  setText("[data-thank-you-mode]", savedModeLabel);
   setText("[data-thank-you-group]", groupName);
   setText("[data-thank-you-guests]", guestsLabel);
   setText("[data-thank-you-copy]", thankYouCopy);
@@ -262,6 +266,77 @@ function downloadCalendarInvite() {
   URL.revokeObjectURL(url);
 }
 
+function cacheHeaderElements() {
+  navToggle = document.querySelector(".nav-toggle");
+  navLinks = Array.from(document.querySelectorAll(".site-nav a"));
+  siteHeader = document.querySelector(".site-header");
+}
+
+function syncActiveNavLink() {
+  const currentKey = document.body.dataset.navCurrent?.trim();
+
+  if (!currentKey || navLinks.length === 0) {
+    return;
+  }
+
+  navLinks.forEach((link) => {
+    const isCurrent = link.dataset.navKey === currentKey;
+    link.classList.toggle("nav-action", isCurrent);
+
+    if (isCurrent) {
+      link.setAttribute("aria-current", "page");
+      return;
+    }
+
+    link.removeAttribute("aria-current");
+  });
+}
+
+async function loadSharedHeader() {
+  if (!sharedHeaderMount) {
+    cacheHeaderElements();
+    syncActiveNavLink();
+    return;
+  }
+
+  const headerSrc = sharedHeaderMount.dataset.headerSrc || "partials/site-header.html";
+
+  try {
+    const response = await fetch(headerSrc);
+
+    if (!response.ok) {
+      throw new Error(`Shared header request failed with ${response.status}.`);
+    }
+
+    sharedHeaderMount.outerHTML = await response.text();
+  } catch (error) {
+    console.error("Unable to load shared header.", error);
+  }
+
+  cacheHeaderElements();
+  syncActiveNavLink();
+}
+
+async function loadSharedFooter() {
+  if (!sharedFooterMount) {
+    return;
+  }
+
+  const footerSrc = sharedFooterMount.dataset.footerSrc || "partials/site-footer.html";
+
+  try {
+    const response = await fetch(footerSrc);
+
+    if (!response.ok) {
+      throw new Error(`Shared footer request failed with ${response.status}.`);
+    }
+
+    sharedFooterMount.outerHTML = await response.text();
+  } catch (error) {
+    console.error("Unable to load shared footer.", error);
+  }
+}
+
 function syncHeaderState() {
   siteHeader?.classList.toggle("is-scrolled", window.scrollY > 24);
 }
@@ -272,6 +347,8 @@ function closeNav() {
 }
 
 function setupNavigation() {
+  cacheHeaderElements();
+
   navToggle?.addEventListener("click", () => {
     const isOpen = document.body.classList.toggle("nav-open");
     navToggle.setAttribute("aria-expanded", String(isOpen));
@@ -347,7 +424,7 @@ function setFormBusy(isBusy) {
   }
 
   submitButton.disabled = isBusy;
-  submitButton.textContent = isBusy ? "Saving..." : "Save registration";
+  submitButton.textContent = isBusy ? "Sending..." : "Send RSVP";
 }
 
 function renderGroupOptions(groups) {
@@ -355,18 +432,40 @@ function renderGroupOptions(groups) {
     return;
   }
 
-  groupSelect.innerHTML = groups
+  const safeGroups = (Array.isArray(groups) ? groups : [])
+    .filter((group) => group?.slug && group?.name)
+    .map((group) => ({
+      slug: String(group.slug).trim(),
+      name: String(group.name).trim()
+    }));
+
+  const availableGroups = safeGroups.length ? safeGroups : starterGroups;
+  const previousValue = String(groupSelect.value || "").trim();
+
+  groupSelect.innerHTML = availableGroups
     .map(
       (group) =>
         `<option value="${group.slug}">${group.name}</option>`
     )
     .join("");
 
-  groupSelect.value = "default";
+  const nextValue = availableGroups.some((group) => group.slug === previousValue)
+    ? previousValue
+    : availableGroups.some((group) => group.slug === "default")
+      ? "default"
+      : availableGroups[0]?.slug || "";
+
+  groupSelect.value = nextValue;
 }
 
 function syncGroupMode() {
-  if (!groupModeInputs.length || !newGroupField || !newGroupInput || !groupSelect) {
+  if (
+    !groupModeInputs.length ||
+    !newGroupField ||
+    !newGroupInput ||
+    !groupSelect ||
+    !existingGroupField
+  ) {
     return;
   }
 
@@ -374,9 +473,11 @@ function syncGroupMode() {
     document.querySelector('input[name="group_mode"]:checked')?.value || "existing";
   const isCreatingGroup = selectedMode === "create";
 
+  existingGroupField.hidden = isCreatingGroup;
   newGroupField.hidden = !isCreatingGroup;
   newGroupInput.required = isCreatingGroup;
   newGroupInput.disabled = !isCreatingGroup;
+  groupSelect.required = !isCreatingGroup;
   groupSelect.disabled = isCreatingGroup;
 
   if (!isCreatingGroup) {
@@ -448,8 +549,8 @@ function setMusicBusy(isBusy) {
 
   musicSubmitButton.disabled = isBusy;
   musicSubmitButton.textContent = isBusy
-    ? "Saving profile..."
-    : "Save music profile";
+    ? "Saving..."
+    : "Save music details";
 }
 
 function parseTagInput(text) {
@@ -506,8 +607,7 @@ function renderMusicProfiles(profiles) {
 
     if (musicEmpty) {
       musicEmpty.hidden = false;
-      musicEmpty.textContent =
-        "No music profiles yet. Be the first person to claim a spot on the jam board.";
+      musicEmpty.textContent = "No music profiles yet. If you play, start here.";
     }
     return;
   }
@@ -731,7 +831,7 @@ async function setupMusicPage() {
     }
 
     setMusicBusy(true);
-    setMusicStatus("Saving music profile to Supabase...", "muted");
+    setMusicStatus("Saving your music details...", "muted");
 
     const { data, error } = await client.rpc("save_music_profile", {
       p_name: firstName,
@@ -756,7 +856,10 @@ async function setupMusicPage() {
 
     musicForm.reset();
     setMusicBusy(false);
-    setMusicStatus(`Music profile ${savedMode}.`, "success");
+    setMusicStatus(
+      savedMode === "updated" ? "Music details updated." : "Music details saved.",
+      "success"
+    );
 
     try {
       await refreshMusicBoard(client);
@@ -791,13 +894,6 @@ async function setupRegistrationForm() {
     return;
   }
 
-  if (status.dataset.tone !== "warning") {
-    setFormStatus(
-      "Email is unique: submitting again with the same email updates the existing registration.",
-      "muted"
-    );
-  }
-
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
@@ -822,7 +918,7 @@ async function setupRegistrationForm() {
     }
 
     setFormBusy(true);
-    setFormStatus("Saving registration to Supabase...", "muted");
+    setFormStatus("Sending your RSVP...", "muted");
 
     const { data, error } = await client.rpc("register_guest", {
       p_name: firstName,
@@ -857,28 +953,47 @@ async function setupRegistrationForm() {
     });
 
     setFormBusy(false);
-    setFormStatus(`Registration ${savedMode}${savedGroup}. Redirecting...`, "success");
+    setFormStatus(
+      savedMode === "updated"
+        ? `RSVP updated${savedGroup}. Opening confirmation page...`
+        : `RSVP received${savedGroup}. Opening confirmation page...`,
+      "success"
+    );
     window.location.assign(thankYouUrl);
   });
 }
 
-populateEventContent();
-populateThankYouPage();
+async function initPage() {
+  await Promise.all([loadSharedHeader(), loadSharedFooter()]);
 
-document.querySelectorAll("[data-download-ics]").forEach((button) => {
-  button.addEventListener("click", downloadCalendarInvite);
-});
+  populateEventContent();
+  populateThankYouPage();
 
-updateCountdown();
-if (countdownTargets.days && !Number.isNaN(eventDate.getTime())) {
-  window.setInterval(updateCountdown, 1000);
+  document.querySelectorAll("[data-download-ics]").forEach((button) => {
+    button.addEventListener("click", downloadCalendarInvite);
+  });
+
+  updateCountdown();
+  if (countdownTargets.days && !Number.isNaN(eventDate.getTime())) {
+    window.setInterval(updateCountdown, 1000);
+  }
+
+  setupNavigation();
+  setupRevealAnimation();
+
+  try {
+    await setupRegistrationForm();
+  } catch (error) {
+    setFormStatus(resolveSupabaseError(error), "error");
+  }
+
+  try {
+    await setupMusicPage();
+  } catch (error) {
+    setMusicStatus(resolveSupabaseError(error), "error");
+  }
 }
 
-setupNavigation();
-setupRevealAnimation();
-setupRegistrationForm().catch((error) => {
-  setFormStatus(resolveSupabaseError(error), "error");
-});
-setupMusicPage().catch((error) => {
-  setMusicStatus(resolveSupabaseError(error), "error");
+initPage().catch((error) => {
+  console.error("Page initialization failed.", error);
 });

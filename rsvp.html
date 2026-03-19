@@ -23,75 +23,13 @@
     </style>
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="subpage lego-theme">
-    <header class="site-header">
-      <div class="container nav-shell">
-        <a class="brand" href="index.html" aria-label="Go to homepage">
-          <span class="brand-wordmark">
-            <span class="brand-accent" data-host-initial>Birthday</span>
-            <span data-event-name>PARTY</span>
-          </span>
-        </a>
-
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          aria-label="Toggle navigation"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav class="site-nav" id="site-nav">
-          <a href="index.html#story">About</a>
-          <a class="nav-action" href="rsvp.html">Registration</a>
-          <a href="music.html">Music</a>
-          <a href="index.html#schedule">Schedule</a>
-          <a href="index.html#venue">Venue</a>
-          <a href="index.html#faq">FAQ</a>
-        </nav>
-      </div>
-    </header>
-
+  <body class="subpage lego-theme" data-nav-current="registration">
+    <div data-site-header></div>
     <main class="subpage-main">
-      <section class="subpage-hero">
-        <div class="container subpage-hero-inner">
-          <div class="subpage-copy reveal">
-            <p class="hero-kicker">Registration</p>
-            <!-- <h1>
-              Confirm your place for
-              <span class="hero-accent"><span data-host-name>Matteo</span>'s</span>
-              <span data-event-name>Birthday Night</span>
-            </h1> -->
-            <p class="hero-date">
-              <time data-display-date datetime=""></time>
-            </p>
-            <p class="hero-venue">
-              <span data-display-time></span>
-              <span class="hero-separator">|</span>
-              <span data-venue-name></span>
-            </p>
-            <!-- <p class="hero-lead">
-              This page saves registrations to Supabase, keeps each email unique,
-              and lets guests either join an existing friends group or create a
-              new one directly during signup.
-            </p> -->
-          </div>
-        </div>
-      </section>
-
       <section class="rsvp-section rsvp-page-section">
         <div class="container rsvp-layout">
           <div class="rsvp-copy reveal">
-            <p class="section-kicker">Before you send it</p>
-            <h2>Reply before <span data-rsvp-deadline>July 4, 2026</span>.</h2>
-            <!-- <p>
-              Share your attendance, guest count, dietary notes, and group
-              preference so the evening can be planned properly.
-            </p> -->
+            <h2>Please reply by <span data-rsvp-deadline>July 4, 2026</span>.</h2>
             <p class="rsvp-contact">
               Contact:
               <a href="#" data-contact-link data-contact-email></a>
@@ -119,33 +57,28 @@
             <div class="rsvp-info-grid">
 
               <article class="rsvp-info-card">
-                <span>Friend groups</span>
-                <h3>Join a group or make a new one!</h3>
+                <span>Groups</span>
+                <h3>Join or create one.</h3>
                 <p>
-                  Guests can pick a group to ease organization, or create a new group during
-                  registration.
+                  If you are coming with a group, let us know in the registration.
                 </p>
               </article>
             </div>
 
             <div class="hero-actions">
-              <a class="button button-dark-outline" href="index.html#schedule">
+              <a class="button button-dark-outline brick-6" href="index.html#schedule">
                 Back to event page
               </a>
-              <a class="button button-primary" href="music.html">
+              <a class="button button-primary brick-5" href="music.html">
                 Open music page
               </a>
-              <button class="button button-outline" type="button" data-download-ics>
+              <button class="button button-outline brick-5" type="button" data-download-ics>
                 Add to calendar
               </button>
             </div>
           </div>
 
           <form class="rsvp-form reveal" id="rsvp-form">
-            <!-- <p class="form-intro">
-              Save your registration directly to the event database.
-            </p> -->
-
             <div class="name-grid">
               <label>
                 Name
@@ -180,7 +113,7 @@
               </label>
             </fieldset>
 
-            <label>
+            <label data-existing-group-field>
               Choose a group
               <select name="group_slug" id="group-slug" required></select>
             </label>
@@ -213,33 +146,23 @@
             </label>
 
             <p class="form-hint">
-              Using the same email again will update the existing registration.
+              If you need to update your info, just send the form again with the same email with the new info.
             </p>
 
             <div class="form-actions">
-              <button class="button button-primary" type="submit">
-                Save registration
+              <button class="button button-success brick-6" type="submit">
+                Send RSVP
               </button>
-              <button class="button button-outline" type="button" data-download-ics>
+              <button class="button button-outline brick-5" type="button" data-download-ics>
                 Add to calendar
               </button>
             </div>
-
-            <p class="form-status" id="form-status" aria-live="polite"></p>
           </form>
         </div>
       </section>
     </main>
 
-    <footer class="site-footer">
-      <div class="container footer-inner">
-        <p>
-          <strong data-event-name>Birthday Night</strong> for
-          <span data-host-name>Matteo</span>.
-        </p>
-        <p>Brick theme live, TEDx-inspired layout kept as the legacy version.</p>
-      </div>
-    </footer>
+    <div data-site-footer></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>

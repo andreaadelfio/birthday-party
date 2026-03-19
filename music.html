@@ -15,292 +15,21 @@
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
-  <body class="subpage music-page lego-theme">
-    <header class="site-header">
-      <div class="container nav-shell">
-        <a class="brand" href="index.html" aria-label="Go to homepage">
-          <span class="brand-wordmark">
-            <span class="brand-accent" data-host-initial>Birthday</span>
-            <span data-event-name>PARTY</span>
-          </span>
-        </a>
-
-        <button
-          class="nav-toggle"
-          type="button"
-          aria-expanded="false"
-          aria-controls="site-nav"
-          aria-label="Toggle navigation"
-        >
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
-
-        <nav class="site-nav" id="site-nav">
-          <a href="index.html#story">About</a>
-          <a href="rsvp.html">Registration</a>
-          <a class="nav-action" href="music.html">Music</a>
-          <a href="#music-form-section">Join the jam</a>
-          <a href="#music-board-section">Music board</a>
-        </nav>
-      </div>
-    </header>
+  <body class="subpage music-page lego-theme" data-nav-current="music">
+    <div data-site-header></div>
 
     <main class="subpage-main">
       <section class="music-stage">
-        <div class="container music-stage-shell">
-          <div class="music-stage-copy reveal">
-            <p class="hero-kicker">Music Lab</p>
-            <h1>
-              <span class="hero-accent">Lego</span> Jam Floor
-            </h1>
-            <p class="music-stage-lead">
-              Build your band before the party starts. This page is a proper
-              brick-colored jam zone for everyone bringing an instrument,
-              looking for a groove, or planning a tiny live set with other
-              players.
-            </p>
-
-            <p class="music-stage-note">
-              More inspired by real LEGO music sets and box-art polish, less by
-              random cutout graphics.
-            </p>
-
-            <div class="music-color-rack" aria-hidden="true">
-              <span class="music-rack-brick music-rack-blue"></span>
-              <span class="music-rack-brick music-rack-red"></span>
-              <span class="music-rack-brick music-rack-yellow"></span>
-              <span class="music-rack-brick music-rack-white"></span>
-              <span class="music-rack-brick music-rack-black"></span>
-            </div>
-
-            <div class="hero-meta">
-              <span data-display-date></span>
-              <span data-display-time></span>
-              <span data-venue-name></span>
-            </div>
-
-            <div class="hero-actions">
-              <a class="button button-primary" href="#music-form-section">
-                Add your setup
-              </a>
-              <a class="button button-dark-outline" href="#music-board-section">
-                Browse musicians
-              </a>
-            </div>
-          </div>
-
-          <div class="music-grid reveal" aria-label="Lego-inspired music stage">
-            <div class="music-column music-column-blue">
-              <img
-                id="lego1"
-                class="anim1 music-figure"
-                src="https://assets.codepen.io/513624/lego1_1.png"
-                alt="Blue lego figure"
-              />
-            </div>
-            <div class="music-column music-column-red">
-              <img
-                id="drums"
-                class="anim1 music-figure"
-                src="https://assets.codepen.io/513624/pngkey.com-drum-set-png-879883_5.png"
-                alt="Drum kit"
-              />
-            </div>
-            <div class="music-column music-column-yellow">
-              <img
-                id="lego2"
-                class="anim1 music-figure"
-                src="https://assets.codepen.io/513624/Daco_2.png"
-                alt="Yellow lego figure"
-              />
-            </div>
-            <div class="music-column music-column-white">
-              <img
-                id="piano"
-                class="anim1 music-figure"
-                src="https://assets.codepen.io/513624/FAVPNG_electronics-product-design-electronic-component-machine_zy1zhVAT_1.png"
-                alt="Keyboard"
-              />
-            </div>
-            <div class="music-column music-column-black">
-              <img
-                id="lego3"
-                class="anim1 music-figure"
-                src="https://assets.codepen.io/513624/pngwing.com_2.png"
-                alt="Black lego figure"
-              />
-            </div>
-
-            <button
-              id="playAudio"
-              class="music-toggle"
-              type="button"
-              aria-pressed="false"
-            >
-              Start the groove
-            </button>
-            <audio
-              id="myAudio"
-              hidden
-              preload="metadata"
-              src="https://assets.codepen.io/513624/The+White+Stripes-Fell+In+Love+With+A+Girl.mp3"
-            ></audio>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-white music-set-section" id="music-sets">
-        <div class="container">
-          <div class="section-heading section-heading-center reveal">
-            <p class="section-kicker">Set references</p>
-            <h2>Real LEGO music energy, not generic placeholder art.</h2>
-            <p>
-              The page now leans on the mood of actual music-themed LEGO sets:
-              display-first, colorful, clean, and a little stage-like without
-              becoming visually noisy.
-            </p>
-          </div>
-
-          <div class="music-set-grid">
-            <article class="music-set-card reveal">
-              <div class="music-set-image-shell">
-                <img
-                  src="https://www.brickeconomy.com/resources/images/sets/lego-21334-1_large.jpg"
-                  alt="LEGO Ideas Jazz Quartet set"
-                  loading="lazy"
-                />
-              </div>
-              <div class="music-set-copy">
-                <span>Ideas 21334</span>
-                <h3>Jazz Quartet</h3>
-                <p>
-                  Brick-built pianist, bassist, trumpeter, and drummer on one
-                  clean display stage.
-                </p>
-              </div>
-            </article>
-
-            <article class="music-set-card reveal">
-              <div class="music-set-image-shell">
-                <img
-                  src="https://www.brickeconomy.com/resources/images/sets/lego-40548-1_large.jpg"
-                  alt="LEGO BrickHeadz Spice Girls Tribute set"
-                  loading="lazy"
-                />
-              </div>
-              <div class="music-set-copy">
-                <span>BrickHeadz 40548</span>
-                <h3>Spice Girls Tribute</h3>
-                <p>
-                  A punchier pop reference with a stronger color rhythm and more
-                  character-led display energy.
-                </p>
-              </div>
-            </article>
-
-            <article class="music-set-card reveal">
-              <div class="music-set-image-shell">
-                <img
-                  src="https://www.brickeconomy.com/resources/images/sets/lego-42619-1_large.jpg"
-                  alt="LEGO Friends Pop Star Music Tour Bus set"
-                  loading="lazy"
-                />
-              </div>
-              <div class="music-set-copy">
-                <span>Friends 42619</span>
-                <h3>Pop Star Music Tour Bus</h3>
-                <p>
-                  More playful stage-storytelling, useful for keeping this page
-                  lively without pushing the styling too far.
-                </p>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section class="section section-white" id="music-plan">
-        <div class="container music-promo-shell">
-          <div class="music-promo-copy reveal">
-            <p class="section-kicker">Build instructions</p>
-            <h2>Snap together a jam crew, a mini concert, or an open set.</h2>
-            <p>
-              Think of this as a baseplate for musicians: each player adds one
-              brick with instruments, styles, and genres, and the whole setup
-              becomes easier to assemble before everyone arrives in the same
-              room.
-            </p>
-            <ul class="list-check">
-              <li>Link every music profile to one guest registration</li>
-              <li>Save one or more instruments, styles, and genres</li>
-              <li>Mark whether you want a jam, mini concert, or open session</li>
-            </ul>
-          </div>
-
-          <aside class="music-promo-panel reveal">
-            <span class="side-label">Brick rules</span>
-            <h3>Make the music area feel built, not improvised.</h3>
-            <p>
-              A guitarist should find a drummer in seconds. A singer should spot
-              keys, bass, or synth. Small combinations can click into place
-              early, then slide naturally into a jam corner later.
-            </p>
-
-            <div class="music-stat-grid">
-              <article>
-                <span>Jam</span>
-                <strong>Find people fast</strong>
-              </article>
-              <article>
-                <span>Mini set</span>
-                <strong>Plan a short performance</strong>
-              </article>
-              <article>
-                <span>Open corner</span>
-                <strong>Leave room for improvisation</strong>
-              </article>
-            </div>
-          </aside>
-        </div>
-      </section>
-
-      <section class="section section-light" id="music-form-section">
         <div class="container music-hub-layout">
           <div class="music-copy reveal">
-            <p class="section-kicker">Build your player brick</p>
-            <h2>Show the room what snaps into your setup.</h2>
-            <p>
-              Save your setup directly in the event database. Instruments,
-              styles, genres, and session goals all live in one place, so other
-              musicians can spot the combinations that make sense fast.
-            </p>
-
-            <div class="rsvp-summary music-summary">
-              <article>
-                <span>Date</span>
-                <strong data-display-date></strong>
-              </article>
-              <article>
-                <span>Time</span>
-                <strong data-display-time></strong>
-              </article>
-              <article>
-                <span>Venue</span>
-                <strong data-venue-name></strong>
-              </article>
-              <article>
-                <span>Contact</span>
-                <strong data-contact-email></strong>
-              </article>
-            </div>
+            <p class="section-kicker">Your setup</p>
+            <h2>Tell people what you can play.</h2>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="rsvp.html">
+              <a class="button button-primary brick-5" href="rsvp.html">
                 Open registration
               </a>
-              <button class="button button-outline" type="button" data-download-ics>
+              <button class="button button-outline brick-5" type="button" data-download-ics>
                 Add to calendar
               </button>
             </div>
@@ -332,41 +61,59 @@
             <fieldset class="music-fieldset">
               <legend>Instruments you play</legend>
               <div class="music-choice-grid music-choice-grid-instruments">
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-guitar">
-                  <input type="checkbox" name="instruments" value="Guitar" />
-                  <span class="music-choice-card-content">
-                    <span>Guitar</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-guitar">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Guitar"
+                  />
+                  <span class="music-instrument-label">Guitar</span>
                 </label>
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-bass">
-                  <input type="checkbox" name="instruments" value="Bass" />
-                  <span class="music-choice-card-content">
-                    <span>Bass</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-bass">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Bass"
+                  />
+                  <span class="music-instrument-label">Bass</span>
                 </label>
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-drums">
-                  <input type="checkbox" name="instruments" value="Drums" />
-                  <span class="music-choice-card-content">
-                    <span>Drums</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-drums">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Drums"
+                  />
+                  <span class="music-instrument-label">Drums</span>
                 </label>
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-piano">
-                  <input type="checkbox" name="instruments" value="Piano" />
-                  <span class="music-choice-card-content">
-                    <span>Piano</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-piano">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Piano"
+                  />
+                  <span class="music-instrument-label">Piano</span>
                 </label>
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-synth">
-                  <input type="checkbox" name="instruments" value="Synth" />
-                  <span class="music-choice-card-content">
-                    <span>Synth</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-synth">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Synth"
+                  />
+                  <span class="music-instrument-label">Synth</span>
                 </label>
-                <label class="music-choice-card music-choice-card-instrument music-choice-card-voice">
-                  <input type="checkbox" name="instruments" value="Voice" />
-                  <span class="music-choice-card-content">
-                    <span>Voice</span>
-                  </span>
+                <label class="music-instrument-option music-instrument-option-voice">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Voice"
+                  />
+                  <span class="music-instrument-label">Voice</span>
                 </label>
               </div>
             </fieldset>
@@ -507,16 +254,13 @@
             </label>
 
             <p class="form-hint">
-              Sending the form again with the same email updates your existing
-              music profile.
+              Send it again with the same email if you need to change
+              something.
             </p>
 
             <div class="form-actions">
-              <button class="button button-primary" type="submit">
-                Save music profile
-              </button>
-              <button class="button button-outline" type="button" data-refresh-music>
-                Refresh board
+              <button class="button button-primary brick-6" type="submit">
+                Save your details
               </button>
             </div>
 
@@ -528,33 +272,19 @@
       <section class="section section-white" id="music-board-section">
         <div class="container">
           <div class="section-heading reveal">
-            <p class="section-kicker">Brick roster</p>
-            <h2>See which pieces are already on the floor.</h2>
-            <p>
-              This board comes from Supabase, so the music crew can find shared
-              taste, lock in tiny lineups, and build a set list before the
-              night.
-            </p>
-          </div>
-
-          <div class="music-board-toolbar reveal">
-            <p>
-              Save your profile, then refresh to spot instrument matches and
-              genre overlaps.
-            </p>
-            <button class="button button-outline" type="button" data-refresh-music>
-              Refresh roster
-            </button>
+            <p class="section-kicker">Who's in</p>
+            <h2>See who is already in for a jam.</h2>
           </div>
 
           <div class="music-board-grid" id="music-board" aria-live="polite"></div>
           <p class="music-board-empty" id="music-empty">
-            No music profiles yet. Be the first person to claim a spot on the
-            jam board.
+            No music profiles yet. If you play, start here.
           </p>
         </div>
       </section>
     </main>
+
+    <div data-site-footer></div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="supabase-config.js"></script>
