@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <li>
             <span class="player-rank">${index + 1}</span>
             <span class="player-name">${player.username || 'Anonymous'}</span>
-            <span class="player-score">${player.score} pts</span>
+            <span class="player-score">${player.total_score} pts</span>
           </li>
         `).join("")}
       </ol>
@@ -119,11 +119,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    // const mission = missions.find(m => m.id === missionId);
-    // if (!mission) {
-    //     setFeedback(claimFeedback, `Mission with ID ${missionId} not found.`, "error");
-    //     return;
-    // }
+    const mission = missions.find(m => m.id === missionId);
+    if (!mission) {
+        setFeedback(claimFeedback, `Mission with ID ${missionId} not found.`, "error");
+        return;
+    }
 
 
     // Handle file upload to Cloudinary first
