@@ -43,14 +43,20 @@ WITH CHECK (true);
 
 -- 3. Funzione RPC per calcolare la classifica
 CREATE OR REPLACE FUNCTION public.get_leaderboard()
-RETURNS TABLE(username TEXT, total_score BIGINT)
+RETURNS TABLE(username TEXT, total_score BIGINT, has_completed_epic BOOLEAN)
 LANGUAGE plpgsql
 AS $$
 BEGIN
   RETURN QUERY
-  SELECT player_username, SUM(points_awarded)::BIGINT
-  FROM public.mission_proofs
-  GROUP BY player_username
-  ORDER BY SUM(points_awarded) DESC;
+  SELECT
+    mp.player_username,
+    SUM(mp.points_awarded)::BIGINT AS total_score,
+    EXISTS (
+      SELECT 1 FROM public.mission_proofs WHERE player_username = mp.player_username AND mission_id = 0
+    ) AS has_completed_epic
+  FROM
+    public.mission_proofs mp
+  GROUP BY mp.player_username
+  ORDER BY total_score DESC;
 END;
 $$;

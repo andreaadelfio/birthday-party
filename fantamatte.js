@@ -81,7 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
         ${players.map((player, index) => `
           <li>
             <span class="player-rank">${index + 1}</span>
-            <span class="player-name">${player.username || 'Anonymous'}</span>
+            <span class="player-name">
+              ${player.username || 'Anonymous'}
+              ${player.has_completed_epic ? '<span class="epic-icon" title="Completed the Epic Mission!">★</span>' : ''}
+            </span>
             <span class="player-score">${player.total_score} pts</span>
           </li>
         `).join("")}
@@ -147,15 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Compress image if it's an image, otherwise upload original file (for videos)
         const fileToUpload = isImage ? await compressImage(proofFile) : proofFile;
 
-        const uploadResult = await uploadToCloudinary(fileToUpload, notes);
-        if (uploadResult && uploadResult.secure_url) {
-            proofUrl = uploadResult.secure_url;
-        } else {
-            setFeedback(claimFeedback, "Proof upload failed. Please try again.", "error");
-            // Ensure the form is usable again after a failed upload
-            claimForm.querySelector('button[type="submit"]').disabled = false;
-            return;
-        }
+        await uploadToCloudinary(fileToUpload, notes);
     }
 
     const { data: userProofs } = await supabase.from('mission_proofs').select('mission_id').eq('player_username', username);
@@ -257,8 +252,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 fetch(videoUrl).then(res => res.json())
             ]);
             
-            const imageResources = imageResponse?.resources || [];
-            const videoResources = videoResponse?.resources || [];
+            const imageResources = (imageResponse?.resources || []).map(res => ({
+              ...res,
+              resource_type: 'image'
+            }));
+            const videoResources = (videoResponse?.resources || []).map(res => ({
+              ...res,
+              resource_type: 'video'
+            }));
             const allResources = [...imageResources, ...videoResources];
 
             // Sort by creation date descending
@@ -272,11 +273,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 let fullUrl, thumbUrl;
 
                 if (resource.resource_type === 'video') {
-                    fullUrl = `${baseUrl}w_1280,h_720,c_limit,q_auto/${version}${resource.public_id}.mp4`;
-                    thumbUrl = `${baseUrl}w_600,h_600,c_fill,q_auto,so_2/${version}${resource.public_id}.jpg`; // Thumbnail from 2nd second
+                    fullUrl = `${baseUrl}${version}${resource.public_id}.mp4`;
+                    thumbUrl = `${baseUrl}w_600,h_600,c_fill,q_auto,so_2/${version}${resource.public_id}.jpg`;
                 } else {
-                    fullUrl = `${baseUrl}f_auto,q_auto,w_1920/${version}${resource.public_id}.${resource.format}`;
-                    thumbUrl = `${baseUrl}f_auto,q_auto,w_600,h_600,c_fill/${version}${resource.public_id}.${resource.format}`;
+                    fullUrl = `${baseUrl}${version}${resource.public_id}.${resource.format}`;
+                    thumbUrl = `${baseUrl}w_600,h_600,c_fill,f_auto,q_auto/${version}${resource.public_id}.${resource.format}`;
                 }
 
                 return {
@@ -427,6 +428,7 @@ document.addEventListener("DOMContentLoaded", () => {
               video.removeAttribute('src');
               image.hidden = false;
               image.style.opacity = '0';
+              image.alt = photo.alt;
               image.src = photo.full;
           }
 
