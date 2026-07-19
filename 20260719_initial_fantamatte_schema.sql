@@ -8,7 +8,7 @@ CREATE TABLE public.missions (
   title TEXT NOT NULL,
   description TEXT,
   points INT NOT NULL DEFAULT 50,
-  repeat_bonus_enabled BOOLEAN NOT NULL DEFAULT false,
+  repeat_bonus_enabled BOOLEAN NOT NULL DEFAULT true,
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 

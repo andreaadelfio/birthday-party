@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Rendering Functions ---
   const renderMissionBoard = (missionsData) => {
     if (!missionBoard) return;
-    const sortedMissions = missionsData.sort((a, b) => b.points - a.points);
+    const sortedMissions = missionsData.sort((a, b) => a.points - b.points);
     missionBoard.innerHTML = `
       <table class="mission-table">
         <thead>
@@ -47,6 +47,12 @@ document.addEventListener("DOMContentLoaded", () => {
               <td class="mission-id-cell">${mission.id}</td>
             </tr>
           `).join("")}
+          <tr class="epic-mission-row">
+            <td>Go to an Epic Mission</td>
+            <td>The points will be evaluated with Matteo based on the epicness of the mission.</td>
+            <td class="mission-points-cell">???</td>
+            <td class="mission-id-cell">EPIC</td>
+          </tr>
         </tbody>
       </table>
     `;
@@ -153,13 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let pointsGained = mission.points;
 
     if (hasCompletedBefore) {
-      if (mission.repeat_bonus_enabled) {
-        pointsGained = Math.round(pointsGained * 0.5); // Repeat bonus
-      } else {
-        // Cannot repeat this mission
-        setFeedback(claimFeedback, `You have already completed the mission "${mission.title}" and it cannot be repeated.`, "warning");
-        return;
-      }
+      pointsGained = Math.round(pointsGained * 0.5); // Repeat bonus is now default
     }
 
     const proofToInsert = {
@@ -179,7 +179,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Re-render components
     await renderLeaderboard();
 
-    setFeedback(claimFeedback, `Success! You gained ${pointsGained} points.`, "success");
+    setFeedback(claimFeedback, "Ok!", "success");
     claimForm.reset();
   };
 

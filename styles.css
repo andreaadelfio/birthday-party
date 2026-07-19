@@ -3220,6 +3220,12 @@ body.subpage .subpage-main > section:only-child {
     color: var(--lego-red);
 }
 
+.epic-mission-row {
+    background-color: var(--lego-yellow) !important;
+    --muted: #413b21;
+    --text: #1f1b18;
+}
+
 .gallery-controls {
     text-align: center;
     margin-bottom: 32px;
