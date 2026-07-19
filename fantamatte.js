@@ -32,26 +32,23 @@ document.addEventListener("DOMContentLoaded", () => {
       <table class="mission-table">
         <thead>
           <tr>
-            <th>Mission</th>
-            <th>Description</th>
-            <th>Points</th>
             <th>ID</th>
+            <th>Mission</th>
+            <th>Points</th>
           </tr>
         </thead>
         <tbody>
           ${sortedMissions.map(mission => `
             <tr>
-              <td>${mission.title}</td>
-              <td>${mission.description}</td>
-              <td class="mission-points-cell">${mission.points}</td>
               <td class="mission-id-cell">${mission.id}</td>
+              <td>${mission.title}</td>
+              <td class="mission-points-cell">${mission.points}</td>
             </tr>
           `).join("")}
           <tr class="epic-mission-row">
+            <td class="mission-id-cell">0</td>
             <td>Go to an Epic Mission</td>
-            <td>The points will be evaluated with Matteo based on the epicness of the mission.</td>
-            <td class="mission-points-cell">???</td>
-            <td class="mission-id-cell">EPIC</td>
+            <td class="mission-points-cell">The points will be evaluated with Matteo based on the epicness of the mission.</td>
           </tr>
         </tbody>
       </table>
@@ -93,10 +90,14 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleMissionIdInput = (event) => {
-    const missionId = parseInt(event.target.value, 10);
-    const mission = missions.find(m => m.id === missionId);
+    const missionId = parseInt(event.target.value, 10);    
     const missionTitleElement = document.getElementById('mission-title-preview');
     if (missionTitleElement) {
+      if (missionId === 0) {
+        missionTitleElement.textContent = 'Mission: Go to an Epic Mission';
+        return;
+      }
+    const mission = missions.find(m => m.id === missionId);
         missionTitleElement.textContent = mission ? `Mission: ${mission.title}` : 'Mission not found';
     }
   };
@@ -115,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (!missionId || isNaN(missionId)) {
+    if (isNaN(missionId)) { // Allow 0
       setFeedback(claimFeedback, "Please enter a valid Mission ID.", "error");
       return;
     }
@@ -125,12 +126,17 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    const mission = missions.find(m => m.id === missionId);
+    let mission;
+    if (missionId === 0) {
+      mission = { id: 0, title: 'Epic Mission', points: 0 };
+    } else {
+      mission = missions.find(m => m.id === missionId);
+    }
+
     if (!mission) {
         setFeedback(claimFeedback, `Mission with ID ${missionId} not found.`, "error");
         return;
     }
-
 
     // Handle file upload to Cloudinary first
     let proofUrl = null;
@@ -166,8 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
       player_username: username,
       mission_id: missionId,
       points_awarded: pointsGained,
-      proof_url: proofUrl,
-      notes: notes || null,
     };
 
     const { error } = await supabase.from('mission_proofs').insert([proofToInsert]);
@@ -244,20 +248,41 @@ document.addEventListener("DOMContentLoaded", () => {
     // Fetch all images from Cloudinary only on the first load
     if (galleryPage === 0) {
         try {
-            const listUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_GALLERY_TAG}.json?timestamp=${new Date().getTime()}`;
-            const response = await fetch(listUrl);
-            if (!response.ok) throw new Error(`Cloudinary list failed with status ${response.status}`);
-            const data = await response.json();
-            
-            const resources = Array.isArray(data?.resources) ? data.resources : [];
-            // Sort by creation date descending
-            resources.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+            const timestamp = new Date().getTime();
+            const imageUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_GALLERY_TAG}.json?timestamp=${timestamp}`;
+            const videoUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/video/list/${CLOUDINARY_GALLERY_TAG}.json?timestamp=${timestamp}`;
 
-            galleryPhotos = resources.map(resource => {
+            const [imageResponse, videoResponse] = await Promise.all([
+                fetch(imageUrl).then(res => res.json()),
+                fetch(videoUrl).then(res => res.json())
+            ]);
+            
+            const imageResources = imageResponse?.resources || [];
+            const videoResources = videoResponse?.resources || [];
+            const allResources = [...imageResources, ...videoResources];
+
+            // Sort by creation date descending
+            allResources.sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+            galleryPhotos = allResources.map(resource => {
                 const context = resource.context?.custom || {};
+                const version = resource.version ? `v${resource.version}/` : '';
+                const baseUrl = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/${resource.resource_type}/upload/`;
+                
+                let fullUrl, thumbUrl;
+
+                if (resource.resource_type === 'video') {
+                    fullUrl = `${baseUrl}w_1280,h_720,c_limit,q_auto/${version}${resource.public_id}.mp4`;
+                    thumbUrl = `${baseUrl}w_600,h_600,c_fill,q_auto,so_2/${version}${resource.public_id}.jpg`; // Thumbnail from 2nd second
+                } else {
+                    fullUrl = `${baseUrl}f_auto,q_auto,w_1920/${version}${resource.public_id}.${resource.format}`;
+                    thumbUrl = `${baseUrl}f_auto,q_auto,w_600,h_600,c_fill/${version}${resource.public_id}.${resource.format}`;
+                }
+
                 return {
-                    full: withCloudinaryTransform(resource.secure_url, 'f_auto,q_auto,w_1920'),
-                    thumb: withCloudinaryTransform(resource.secure_url, 'f_auto,q_auto,w_600'),
+                    type: resource.resource_type,
+                    full: fullUrl,
+                    thumb: thumbUrl,
                     alt: context.alt || context.caption || `Proof image`,
                     title: `Mission Proof`,
                     description: context.caption || context.alt || ''
@@ -311,6 +336,10 @@ document.addEventListener("DOMContentLoaded", () => {
       imgElement.alt = photoData.alt;
       imgElement.loading = 'lazy';
       trigger.appendChild(imgElement);
+      
+      if (photoData.type === 'video') {
+          trigger.classList.add('is-video');
+      }
 
       if (photoData.description) {
           const caption = document.createElement('p');
@@ -359,6 +388,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const image = document.createElement('img');
       image.className = 'photo-preview-image';
+      
+      const video = document.createElement('video');
+      video.className = 'photo-preview-video';
 
       const caption = document.createElement('div');
       caption.className = 'photo-preview-caption';
@@ -366,6 +398,7 @@ document.addEventListener("DOMContentLoaded", () => {
       panel.append(spinner, image, caption, prevButton, nextButton, closeButton);
       modal.appendChild(panel);
       document.body.appendChild(modal);
+      panel.insertBefore(video, image);
 
       let photos = [];
       let currentIndex = -1;
@@ -377,11 +410,25 @@ document.addEventListener("DOMContentLoaded", () => {
           const photo = photos[index];
 
           spinner.hidden = false;
-          image.style.opacity = '0';
-          image.src = photo.full;
-          image.alt = photo.alt;
           caption.textContent = photo.description;
           caption.hidden = !photo.description;
+          
+          if (photo.type === 'video') {
+              image.hidden = true;
+              video.hidden = false;
+              video.src = photo.full;
+              video.poster = photo.thumb;
+              video.controls = true;
+              video.play().catch(() => {}); // Autoplay, ignore errors if blocked
+              spinner.hidden = true; // Video player has its own spinner
+          } else {
+              video.hidden = true;
+              video.pause();
+              video.removeAttribute('src');
+              image.hidden = false;
+              image.style.opacity = '0';
+              image.src = photo.full;
+          }
 
           prevButton.hidden = currentIndex === 0;
           nextButton.hidden = currentIndex === photos.length - 1;
@@ -398,6 +445,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const close = () => {
           modal.hidden = true;
+          video.pause();
+          video.removeAttribute('src');
           document.body.classList.remove('photo-preview-open');
           if (lastFocusedElement) lastFocusedElement.focus();
       };
