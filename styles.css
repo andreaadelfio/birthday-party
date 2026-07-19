@@ -1,0 +1,3674 @@
+:root {
+  --accent: #e62b1e;
+  --black: #0f0f0f;
+  --black-soft: #1b1b1b;
+  --white: #ffffff;
+  --off-white: #f7f7f7;
+  --text: #272727;
+  --muted: #626262;
+  --border: #dfdfdf;
+  --shadow: 5px 5px 30px rgba(0, 0, 0, 0.05);
+  --container: 1140px;
+  --container-gutter: clamp(12px, 2.8vw, 16px);
+  --hero-bg-image: none;
+  --hero-bg-position: center center;
+  --countdown-bg-image: none;
+  --countdown-bg-position: center center;
+  --venue-bg-image: none;
+  --venue-bg-position: center center;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  background: var(--white);
+}
+
+body.subpage {
+  display: flex;
+  flex-direction: column;
+}
+
+body.nav-open {
+  overflow: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.highlight-link {
+  color: var(--accent);
+  font-weight: 700;
+  /* text-decoration: underline; */
+  text-decoration-thickness: 2px;
+  text-decoration-color: rgba(214, 34, 25, 0.8);
+  /* background: rgba(255, 229, 153, 0.55); */
+  border-radius: 4px;
+  /* padding: 0 0.15rem; */
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.container {
+  width: min(100%, var(--container));
+  margin: 0 auto;
+  padding-inline: var(--container-gutter);
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 30;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease;
+  border-bottom: 1px solid transparent;
+}
+
+.site-header.is-scrolled {
+  background: rgba(0, 0, 0, 0.94);
+  border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.nav-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 80px;
+  gap: 24px;
+}
+
+.brand {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.brand-wordmark,
+.site-nav a,
+.hero-kicker,
+.hero-date,
+.hero-venue,
+.button,
+.section-kicker,
+.section-heading h2,
+.feature-body h3,
+.timeline-time,
+.timeline-content h3,
+.side-label,
+.side-panel h3,
+.venue-panel h3,
+.faq-card summary,
+.rsvp-copy h2,
+.rsvp-form label,
+.footer-inner strong {
+  font-family: "Catamaran", sans-serif;
+}
+
+.brand-wordmark {
+  color: var(--white);
+  font-size: 1.55rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.brand-accent {
+  color: var(--accent);
+}
+
+.brand small {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-nav a {
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus-visible {
+  color: var(--white);
+}
+
+.site-nav a.nav-action {
+  padding: 10px 18px;
+  background: var(--accent);
+  color: var(--white);
+}
+
+.site-nav a.nav-action:hover,
+.site-nav a.nav-action:focus-visible {
+  background: #c62218;
+}
+
+.nav-toggle {
+  display: none;
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 20px;
+  height: 2px;
+  margin: 4px auto;
+  background: var(--white);
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 140px 0 130px;
+  color: var(--white);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+    var(--hero-bg-image),
+    radial-gradient(circle at 18% 18%, rgba(230, 43, 30, 0.26), transparent 30%),
+    linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 52%, #050505 100%);
+  background-position:
+    center center,
+    var(--hero-bg-position),
+    center center,
+    center center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, auto, auto;
+}
+
+/* Decorative overlay intentionally disabled here. */
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 0%, transparent 52%, rgba(0, 0, 0, 0.34) 100%);
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: grid;
+  gap: 56px;
+  justify-items: center;
+}
+
+.hero-copy {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.hero-countdown {
+  width: 100%;
+}
+
+.hero-countdown .countdown-grid {
+  gap: 40px;
+}
+
+.hero-kicker {
+  margin: 0 0 16px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.hero-copy h1 {
+  margin: 0;
+  font-family: "Catamaran", sans-serif;
+  font-size: clamp(3.8rem, 11vw, 6.9rem);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.hero-accent {
+  color: var(--accent);
+}
+
+.hero-date {
+  margin: 24px 0 0;
+  color: var(--white);
+  font-size: clamp(1.65rem, 4vw, 2.4rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hero-venue {
+  margin: 12px 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.hero-separator {
+  display: inline-block;
+  margin: 0 10px;
+  color: var(--accent);
+}
+
+.hero-lead {
+  max-width: 720px;
+  margin: 24px auto 0;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.02rem;
+}
+
+.hero-actions,
+.form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.hero-actions {
+  justify-content: center;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: 0 26px;
+  border: 2px solid transparent;
+  border-radius: 0;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+  cursor: pointer;
+}
+
+.button:hover,
+.button:focus-visible {
+  transform: translateY(-2px);
+}
+
+.button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.button-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--white);
+}
+
+.button-primary:hover,
+.button-primary:focus-visible {
+  background: #c62218;
+  border-color: #c62218;
+}
+
+.button-outline {
+  background: var(--white);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.button-outline:hover,
+.button-outline:focus-visible {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.button-dark-outline {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.82);
+  color: var(--white);
+}
+
+.button-dark-outline:hover,
+.button-dark-outline:focus-visible {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--black);
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.hero-meta span {
+  padding: 10px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  background: #111111;
+  color: rgba(255, 255, 255, 0.84);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.event-banner {
+  position: relative;
+  z-index: 2;
+  margin-top: -56px;
+}
+
+.event-banner-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  background: var(--white);
+  border: 1px solid #ededed;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.08);
+}
+
+.banner-block {
+  padding: 34px 28px;
+  text-align: center;
+  border-right: 1px solid #ededed;
+}
+
+.banner-block:last-child {
+  border-right: 0;
+}
+
+.banner-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.banner-block p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.banner-block .button {
+  margin-top: 20px;
+}
+
+.brick-banner {
+  position: relative;
+  z-index: 2;
+  margin-top: -56px;
+}
+
+.brick-banner .container {
+  background: var(--white);
+  border: 1px solid #ededed;
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.08);
+}
+
+.brick-banner-shell {
+  padding: 26px 20px 20px;
+}
+
+.brick-banner-header {
+  max-width: 720px;
+  margin: 0 auto 16px;
+  text-align: center;
+}
+
+.brick-banner-header .section-kicker {
+  margin: 0;
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.98rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.brick-banner-buttons {
+  display: flex;
+  flex-wrap: wrap-reverse;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.brick-banner-button {
+  margin: 0;
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  flex: 0 1 auto;
+  inline-size: auto;
+  min-inline-size: calc(var(--brick-stud-count) * var(--brick-stud-size) + 32px);
+}
+
+.brick-banner-button:nth-child(1) {
+  z-index: 1;
+}
+
+.brick-banner-button:nth-child(2) {
+  z-index: 2;
+}
+
+.brick-banner-button:nth-child(3) {
+  z-index: 3;
+}
+
+.brick-banner .button.brick-banner-button:nth-child(1) {
+  --brick-fill: var(--lego-blue);
+  --brick-text: var(--white);
+}
+
+.brick-banner .button.brick-banner-button:nth-child(2) {
+  --brick-fill: var(--lego-orange);
+  --brick-text: var(--white);
+}
+
+.brick-banner .button.brick-banner-button:nth-child(3) {
+  --brick-fill: var(--lego-green);
+  --brick-text: var(--white);
+}
+
+.brick-banner-button:hover,
+.brick-banner-button:focus-visible {
+  transform: translateY(-1px);
+}
+
+.banner-action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--off-white);
+}
+
+.section,
+.countdown-section,
+.rsvp-section {
+  padding: 140px 0 80px;
+}
+
+.section-light {
+  /* background: linear-gradient(180deg, #f3efe7 0%, #fbfaf7 100%); */
+}
+
+.section-white {
+  background: var(--white);
+}
+
+.section-heading {
+  max-width: 820px;
+  margin-bottom: 42px;
+}
+
+.section-heading-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.section-kicker {
+  margin: 0 0 14px;
+  color: var(--accent);
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.section-heading h2,
+.rsvp-copy h2 {
+  margin: 0;
+  font-size: clamp(2.7rem, 6vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.section-heading p {
+  margin: 18px 0 0;
+  color: var(--muted);
+}
+
+.feature-grid,
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.feature-box,
+.timeline-content,
+.side-panel,
+.venue-panel,
+.faq-card,
+.rsvp-form {
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+
+.feature-top {
+  min-height: 128px;
+  display: flex;
+  align-items: flex-end;
+  padding: 22px 24px;
+  background: linear-gradient(135deg, #111111, #232323);
+}
+
+.feature-box:nth-child(2) .feature-top {
+  background: linear-gradient(135deg, #e62b1e, #991d15);
+}
+
+.feature-box:nth-child(3) .feature-top {
+  background: linear-gradient(135deg, #111111, #e62b1e);
+}
+
+.feature-top span {
+  color: var(--white);
+  font-size: 2.7rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.feature-body {
+  padding: 26px 24px 30px;
+}
+
+.feature-body h3 {
+  margin: 0 0 10px;
+  color: var(--text);
+  font-size: 1.45rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.feature-body p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.countdown-section {
+  position: relative;
+  overflow: hidden;
+  color: var(--white);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72)),
+    var(--countdown-bg-image),
+    radial-gradient(circle at 18% 18%, rgba(230, 43, 30, 0.24), transparent 28%),
+    linear-gradient(135deg, #111111 0%, #191919 48%, #050505 100%);
+  background-position:
+    center center,
+    var(--countdown-bg-position),
+    center center,
+    center center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, auto, auto;
+}
+
+.countdown-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.05) 0,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 24px
+    );
+  opacity: 0.15;
+}
+
+.countdown-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.countdown-section .section-heading h2,
+.countdown-section .section-heading p,
+.rsvp-copy h2,
+.rsvp-copy p,
+.venue-copy .section-heading h2,
+.venue-copy .section-heading p {
+  color: var(--white);
+}
+
+.countdown-section .section-heading p,
+.rsvp-copy p,
+.venue-copy .section-heading p {
+  color: rgba(255, 255, 255, 0.76);
+}
+
+.countdown-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 48px;
+}
+
+.count-segment {
+  min-width: 120px;
+  text-align: center;
+}
+
+.count-segment span {
+  display: block;
+  font-family: "Catamaran", sans-serif;
+  font-size: clamp(3.2rem, 8vw, 5.4rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.count-segment small {
+  display: block;
+  margin-top: 12px;
+  color: rgba(255, 255, 255, 0.72);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.schedule-layout,
+.venue-layout,
+.rsvp-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(320px, 0.8fr);
+  gap: clamp(24px, 3vw, 36px);
+  align-items: start;
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0 0 24px 28px;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 24px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #989898;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.timeline-item.highlight::before {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.timeline-time {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.timeline-content {
+  padding: 22px;
+}
+
+.timeline-content h3,
+.side-panel h3,
+.venue-panel h3 {
+  margin: 0 0 8px;
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.timeline-content p,
+.side-panel p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.side-panel,
+.venue-panel {
+  padding: 28px;
+  border-top: 4px solid var(--accent);
+}
+
+.side-label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.88rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.list-check {
+  list-style: none;
+  padding: 0;
+  margin: 18px 0 0;
+}
+
+.list-check li {
+  padding: 13px 0;
+  border-top: 1px solid #ededed;
+  color: var(--muted);
+}
+
+.list-check li:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.venue-section {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.84), rgba(0, 0, 0, 0.84)),
+    var(--venue-bg-image),
+    linear-gradient(135deg, #111111 0%, #1a1a1a 52%, #050505 100%);
+  background-position:
+    center center,
+    var(--venue-bg-position),
+    center center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, auto;
+}
+
+.venue-meta {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.venue-meta article {
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #171717;
+}
+
+.venue-meta span {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.venue-meta strong {
+  color: var(--white);
+}
+
+.faq-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.faq-card {
+  padding: 0;
+}
+
+.faq-card summary {
+  position: relative;
+  padding: 20px 56px 20px 22px;
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-card summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-card summary::after {
+  content: "+";
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  color: var(--accent);
+  font-size: 1.6rem;
+  font-weight: 700;
+  transform: translateY(-50%);
+}
+
+.faq-card[open] summary::after {
+  content: "-";
+}
+
+.faq-card {
+  align-self: start;
+}
+
+.faq-card > p,
+.faq-card > div {
+  padding: 0 22px 22px;
+}
+
+.faq-card p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.rsvp-section {
+  color: var(--white);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.82)),
+    linear-gradient(135deg, #101010 0%, #1b1b1b 52%, #050505 100%);
+}
+
+.rsvp-callout {
+  display: grid;
+  gap: 28px;
+  max-width: 920px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.callout-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.rsvp-copy .section-kicker {
+  margin-bottom: 14px;
+}
+
+.rsvp-contact {
+  margin-top: 24px;
+  font-family: "Catamaran", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rsvp-contact a {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.42);
+}
+
+.rsvp-info-grid {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.rsvp-info-card {
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #171717;
+}
+
+.rsvp-info-card span {
+  display: block;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.rsvp-info-card h3 {
+  margin: 0 0 8px;
+  color: var(--white);
+  font-family: "Catamaran", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.rsvp-info-card p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+body.subpage .subpage-main {
+  flex: 1 0 auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+body.subpage .subpage-main > section:only-child {
+  flex: 1 0 auto;
+}
+
+.subpage-hero {
+  position: relative;
+  padding: 160px 0 72px;
+  color: var(--white);
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)),
+    var(--hero-bg-image),
+    linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 52%, #050505 100%);
+  background-position: center center, var(--hero-bg-position), center center;
+  background-repeat: no-repeat;
+  background-size: cover, cover, auto;
+}
+
+.subpage-hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.05) 0,
+      rgba(255, 255, 255, 0.05) 1px,
+      transparent 1px,
+      transparent 118px
+    );
+  opacity: 0.12;
+}
+
+.subpage-hero-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.subpage-copy {
+  max-width: 860px;
+}
+
+.subpage-copy h1 {
+  margin: 0;
+  font-family: "Catamaran", sans-serif;
+  font-size: clamp(3rem, 9vw, 5.8rem);
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.thank-you-page .subpage-hero {
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.78), rgba(0, 0, 0, 0.78)),
+    radial-gradient(circle at 18% 18%, rgba(230, 43, 30, 0.2), transparent 28%),
+    linear-gradient(135deg, #0f0f0f 0%, #1b1b1b 52%, #050505 100%);
+}
+
+.rsvp-page-section {
+  display: flex;
+  align-items: center;
+  padding-top: 120px;
+  padding-bottom: clamp(8px, 2vh, 24px);
+}
+
+.rsvp-page-section .hero-actions {
+  justify-content: flex-start;
+}
+
+@media (min-width: 1500px) {
+  .rsvp-page-section {
+    padding-top: 120px;
+    padding-bottom: 8px;
+  }
+
+  .rsvp-form {
+    padding: 18px 22px;
+  }
+
+  .rsvp-summary,
+  .rsvp-info-grid {
+    margin-top: 20px;
+  }
+}
+
+.thank-you-panel {
+  display: grid;
+  gap: 18px;
+}
+
+.thank-you-detail-list {
+  display: grid;
+  gap: 14px;
+}
+
+.thank-you-detail {
+  padding: 16px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #fafafa;
+}
+
+.thank-you-detail strong {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.thank-you-detail p,
+.thank-you-note {
+  margin: 0;
+  color: var(--muted);
+}
+
+.thank-you-inline-link {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.rsvp-summary {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.rsvp-summary article {
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: #171717;
+}
+
+.rsvp-summary span {
+  display: block;
+  margin-bottom: 6px;
+  color: rgba(255, 255, 255, 0.62);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.rsvp-summary strong {
+  color: var(--white);
+}
+
+.rsvp-form {
+  padding: clamp(20px, 3.5vw, 30px);
+  color: var(--text);
+}
+
+.form-intro {
+  margin: 0 0 18px;
+  color: var(--muted);
+}
+
+.name-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.rsvp-form label {
+  display: block;
+  margin-bottom: 16px;
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.rsvp-form label small {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-transform: none;
+}
+
+.rsvp-form .checkbox-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
+  text-transform: none;
+  font-weight: 600;
+}
+
+.rsvp-form .checkbox-label input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.rsvp-form .checkbox-label small {
+  flex: 1;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.rsvp-form input,
+.rsvp-form select,
+.rsvp-form textarea {
+  width: 100%;
+  margin-top: 10px;
+  border: 2px solid rgba(0, 0, 0, 0.13);
+  border-radius: 0;
+  padding: 14px 18px;
+  background: var(--white);
+  color: var(--text);
+}
+
+.rsvp-form input:disabled,
+.rsvp-form select:disabled,
+.rsvp-form textarea:disabled {
+  background: #f2f2f2;
+  cursor: not-allowed;
+}
+
+.form-hint {
+  margin: 0;
+  color: var(--muted);
+}
+
+.rsvp-form input::placeholder,
+.rsvp-form textarea::placeholder {
+  color: #7c7c7c;
+}
+
+.rsvp-form input:focus,
+.rsvp-form select:focus,
+.rsvp-form textarea:focus {
+  border-color: var(--accent);
+  outline: 0;
+}
+
+.form-actions {
+  margin-top: 18px;
+}
+
+.form-status {
+  min-height: 24px;
+  margin: 12px 0 0;
+  color: var(--muted);
+}
+
+.form-status[data-tone="muted"] {
+  color: var(--muted);
+}
+
+.form-status[data-tone="success"] {
+  color: #3fb27f;
+}
+
+.form-status[data-tone="warning"] {
+  color: #d68600;
+}
+
+.form-status[data-tone="error"] {
+  color: #d64545;
+}
+
+/* Legacy TEDx-inspired baseline lives in the unscoped rules above.
+   Apply .lego-theme to a page body to switch to the shared brick theme. */
+.lego-theme {
+  --lego-red: #d42219;
+  --lego-blue: #2374c6;
+  --lego-yellow: #ffdd22;
+  --lego-green: #2ea44f;
+  --lego-purple: #7a4dd8;
+  --lego-orange: #ff8a1f;
+  --lego-white: #fff8ea;
+  --lego-black: #121212;
+  --brick-stud-size: 40px;
+  --brick-stud-height: 9px;
+  --brick-stud-mask: repeating-linear-gradient(
+    90deg,
+    transparent 0 20%,
+    #000 20% 80%,
+    transparent 80% 100%
+  );
+  --brick-stud-filter:
+    drop-shadow(1px 0 0 rgba(17, 17, 17, 0.22))
+    drop-shadow(-1px 0 0 rgba(17, 17, 17, 0.22))
+    drop-shadow(0 1px 0 rgba(17, 17, 17, 0.2))
+    drop-shadow(0 -1px 0 rgba(255, 255, 255, 0.1))
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.12));
+  --lego-stud-size-list: 72px 72px, 72px 72px, 72px 72px, 72px 72px;
+  --lego-stud-soft: none;
+  --lego-stud-strong: none;
+  --accent: #d42219;
+  --black: #121212;
+  --black-soft: #1c2436;
+  --white: #fffdf8;
+  --off-white: #f7f2e8;
+  --text: #1f1b18;
+  --muted: #615850;
+  --border: rgba(17, 17, 17, 0.14);
+  --shadow: 0 22px 42px rgba(0, 0, 0, 0.1);
+  font-family: "Nunito", "Roboto", sans-serif;
+  background: linear-gradient(180deg, #f4f0e7 0%, #fbfaf7 38%, #ffffff 100%);
+  background-size: auto;
+}
+
+.lego-theme .brand-accent {
+  color: var(--lego-yellow);
+}
+
+.lego-theme .site-header.is-scrolled {
+  background: rgba(13, 21, 39, 0.95);
+  border-bottom-color: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(18px);
+}
+
+.lego-theme .nav-toggle {
+  border-radius: 0;
+  border: 1.5px solid rgba(255, 255, 255, 0.28);
+  background: rgba(7, 12, 23, 0.28);
+}
+
+.lego-theme .site-nav {
+  --nav-stud-size: 32px;
+  gap: 0;
+  align-items: stretch;
+  padding-top: 0;
+}
+
+.lego-theme .site-nav a {
+  --nav-brick-fill: var(--lego-blue);
+  --nav-text: var(--white);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: auto;
+  min-height: 58px;
+  padding: 14px 12px;
+  border: 1.5px solid rgba(17, 17, 17, 0.18);
+  border-radius: 0;
+  background: var(--nav-brick-fill);
+  color: var(--nav-text);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.lego-theme .site-nav a + a {
+  margin-left: -1.5px;
+}
+
+.lego-theme .site-nav a:nth-child(6n + 1) {
+  --nav-brick-fill: var(--lego-blue);
+  --nav-stud-count: 3;
+}
+
+.lego-theme .site-nav a:nth-child(6n + 2) {
+  --nav-brick-fill: var(--lego-red);
+  --nav-stud-count: 5;
+}
+
+.lego-theme .site-nav a:nth-child(6n + 3) {
+  --nav-brick-fill: var(--lego-yellow);
+  --nav-text: #111111;
+  --nav-stud-count: 5;
+}
+
+.lego-theme .site-nav a:nth-child(6n + 4) {
+  --nav-brick-fill: var(--lego-green);
+  --nav-stud-count: 4;
+}
+
+.lego-theme .site-nav a:nth-child(6n + 5) {
+  --nav-brick-fill: var(--lego-purple);
+  --nav-stud-count: 3;
+}
+
+.lego-theme .site-nav a:nth-child(6n) {
+  --nav-brick-fill: var(--lego-orange);
+  --nav-text: #111111;
+  --nav-stud-count: 3;
+}
+
+.lego-theme .site-nav a:hover,
+.lego-theme .site-nav a:focus-visible {
+  color: inherit;
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.16);
+}
+
+.lego-theme .site-nav a.nav-action,
+.lego-theme .site-nav a[aria-current="page"] {
+  background: var(--nav-brick-fill);
+  color: var(--nav-text);
+  border-color: rgba(17, 17, 17, 0.34);
+  box-shadow:
+    inset 0 0 0 2px rgba(255, 255, 255, 0.34),
+    0 16px 30px rgba(0, 0, 0, 0.16);
+}
+
+.lego-theme .button {
+  --brick-fill: var(--lego-red);
+  --brick-text: var(--white);
+  --brick-stud-count: 5;
+  position: relative;
+  isolation: isolate;
+  overflow: visible;
+  inline-size: calc(var(--brick-stud-count) * var(--brick-stud-size));
+  min-height: 70px;
+  padding: 22px 16px 14px;
+  border: 1.5px solid rgba(17, 17, 17, 0.22);
+  border-radius: 0;
+  background: var(--brick-fill);
+  color: var(--brick-text);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.14);
+  white-space: nowrap;
+  text-align: center;
+}
+
+.lego-theme .button::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: calc(var(--brick-stud-height) * -0.72);
+  width: calc(var(--brick-stud-count) * var(--brick-stud-size));
+  height: var(--brick-stud-height);
+  transform: translateX(-50%);
+  background: var(--brick-fill);
+  -webkit-mask-image: var(--brick-stud-mask);
+  -webkit-mask-size: var(--brick-stud-size) 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-image: var(--brick-stud-mask);
+  mask-size: var(--brick-stud-size) 100%;
+  mask-repeat: repeat-x;
+  opacity: 0.98;
+  filter: var(--brick-stud-filter);
+  pointer-events: none;
+}
+
+.lego-theme .button:hover,
+.lego-theme .button:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
+}
+
+.lego-theme .button-primary {
+  --brick-fill: var(--lego-red);
+  --brick-text: var(--white);
+}
+
+.lego-theme .button-success {
+  --brick-fill: var(--lego-green);
+  --brick-text: var(--white);
+}
+
+.lego-theme .button-primary:hover,
+.lego-theme .button-primary:focus-visible,
+.lego-theme .button-success:hover,
+.lego-theme .button-success:focus-visible {
+  border-color: rgba(17, 17, 17, 0.24);
+}
+
+.lego-theme .button-outline {
+  --brick-fill: var(--lego-yellow);
+  --brick-text: #111111;
+}
+
+.lego-theme .button-dark-outline {
+  --brick-fill: var(--lego-blue);
+  --brick-text: var(--white);
+}
+
+.lego-theme .button.brick-4,
+.music-toggle.brick-4 {
+  --brick-stud-count: 4;
+}
+
+.lego-theme .button.brick-5,
+.music-toggle.brick-5 {
+  --brick-stud-count: 5;
+}
+
+.lego-theme .button.brick-6,
+.music-toggle.brick-6 {
+  --brick-stud-count: 6;
+}
+
+.lego-theme .button.brick-8,
+.music-toggle.brick-8 {
+  --brick-stud-count: 8;
+}
+
+.lego-theme .hero-actions,
+.lego-theme .form-actions,
+.lego-theme .callout-actions {
+  margin-top: calc(22px + var(--brick-stud-height) * 0.72);
+}
+
+.lego-theme .hero,
+.lego-theme .subpage-hero {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    var(--hero-bg-image),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+  background-position:
+    center center,
+    var(--hero-bg-position),
+    center center;
+  background-repeat: no-repeat;
+  background-size: auto, auto, auto, cover, auto;
+}
+
+.lego-theme .hero::before,
+.lego-theme .subpage-hero::before {
+  background-image: none;
+  opacity: 0;
+}
+
+.lego-theme .hero::after,
+.lego-theme .subpage-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.18) 0%, transparent 26%, transparent 64%, rgba(0, 0, 0, 0.12) 100%);
+}
+
+.thank-you-page.lego-theme .subpage-hero {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 221, 34, 0.2), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(212, 34, 25, 0.14), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+}
+
+.lego-theme .hero-kicker,
+.lego-theme .section-kicker {
+  color: var(--lego-yellow);
+}
+
+.lego-theme .hero-accent {
+  color: var(--lego-yellow);
+}
+
+.lego-theme .hero-meta span {
+  border: 1.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  background: rgba(9, 15, 28, 0.42);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.16);
+  backdrop-filter: blur(10px);
+}
+
+.lego-theme .event-banner-grid {
+  overflow: visible;
+  border: 1.5px solid rgba(17, 17, 17, 0.12);
+  border-radius: 0;
+  background: transparent;
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.12);
+}
+
+.lego-theme .banner-block,
+.lego-theme .feature-box,
+.lego-theme .timeline-content,
+.lego-theme .side-panel,
+.lego-theme .venue-panel,
+.lego-theme .faq-card,
+.lego-theme .rsvp-form,
+.lego-theme .thank-you-detail,
+.lego-theme .venue-meta article,
+.lego-theme .rsvp-summary article,
+.lego-theme .rsvp-info-card,
+.lego-theme .mode-option,
+.music-set-card,
+.music-promo-panel,
+.music-summary article,
+.music-choice-card:not(.music-choice-card-instrument),
+.music-form,
+.music-board-toolbar,
+.music-board-empty,
+.music-card {
+  --card-brick-fill: #fffdf8;
+  --card-stud-fill: var(--card-brick-fill);
+  --card-stud-opacity: 0;
+  --card-stud-count: 4;
+  position: relative;
+  isolation: isolate;
+  background: var(--card-brick-fill);
+}
+
+.lego-theme .banner-block,
+.lego-theme .feature-box,
+.lego-theme .timeline-content,
+.lego-theme .side-panel,
+.lego-theme .venue-panel,
+.lego-theme .faq-card,
+.lego-theme .rsvp-form,
+.music-set-card,
+.music-promo-panel,
+.music-form,
+.music-board-toolbar,
+.music-card {
+  --card-stud-count: 5;
+}
+
+.lego-theme .venue-meta article,
+.lego-theme .rsvp-summary article,
+.lego-theme .mode-option,
+.lego-theme .thank-you-detail,
+.music-summary article,
+.music-choice-card:not(.music-choice-card-instrument),
+.music-board-empty {
+  --card-stud-count: 3;
+}
+
+.lego-theme .banner-block {
+  --card-stud-opacity: 0.98;
+  border-right: 1.5px solid rgba(17, 17, 17, 0.14);
+}
+
+.lego-theme .banner-block:nth-child(1) {
+  --card-brick-fill: var(--lego-blue);
+}
+
+.lego-theme .banner-block:nth-child(2) {
+  --card-brick-fill: var(--lego-red);
+}
+
+.lego-theme .banner-action {
+  --card-brick-fill: var(--lego-yellow);
+}
+
+.lego-theme .banner-block:nth-child(1) .banner-label,
+.lego-theme .banner-block:nth-child(2) .banner-label {
+  color: var(--white);
+}
+
+.lego-theme .banner-block:nth-child(1) p,
+.lego-theme .banner-block:nth-child(2) p {
+  color: rgba(255, 255, 255, 0.84);
+}
+
+.lego-theme .section-light {
+  background-size: var(--lego-stud-size-list), auto;
+}
+
+.lego-theme .section-white {
+  background:
+    var(--lego-stud-soft),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.98));
+  background-size: var(--lego-stud-size-list), auto;
+}
+
+.lego-theme .feature-box,
+.lego-theme .timeline-content,
+.lego-theme .side-panel,
+.lego-theme .venue-panel,
+.lego-theme .faq-card,
+.lego-theme .rsvp-form,
+.lego-theme .thank-you-detail {
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 28px;
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.08);
+  overflow: visible;
+}
+
+.lego-theme .feature-top {
+  background: var(--lego-blue);
+}
+
+.lego-theme .feature-box:nth-child(2) .feature-top {
+  background: var(--lego-red);
+}
+
+.lego-theme .feature-box:nth-child(3) .feature-top {
+  background: var(--lego-yellow);
+}
+
+.lego-theme .feature-box:nth-child(3) .feature-top span {
+  color: #111111;
+}
+
+.lego-theme .timeline::before {
+  content: none;
+  display: none;
+}
+
+.lego-theme .timeline {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.lego-theme .timeline-item {
+  --timeline-brick-fill: var(--lego-yellow);
+  --timeline-text: #111111;
+  --timeline-note: rgba(17, 17, 17, 0.78);
+  display: block;
+  padding: 0;
+}
+
+.lego-theme .timeline-item:nth-child(5n + 1) {
+  --timeline-brick-fill: var(--lego-yellow);
+  --timeline-text: #111111;
+  --timeline-note: rgba(17, 17, 17, 0.78);
+}
+
+.lego-theme .timeline-item:nth-child(5n + 2) {
+  --timeline-brick-fill: var(--lego-red);
+  --timeline-text: var(--white);
+  --timeline-note: rgba(255, 255, 255, 0.82);
+}
+
+.lego-theme .timeline-item:nth-child(5n + 3) {
+  --timeline-brick-fill: var(--lego-blue);
+  --timeline-text: var(--white);
+  --timeline-note: rgba(255, 255, 255, 0.82);
+}
+
+.lego-theme .timeline-item:nth-child(5n + 4) {
+  --timeline-brick-fill: var(--lego-green);
+  --timeline-text: var(--white);
+  --timeline-note: rgba(255, 255, 255, 0.82);
+}
+
+.lego-theme .timeline-item:nth-child(5n) {
+  --timeline-brick-fill: var(--lego-orange);
+  --timeline-text: #111111;
+  --timeline-note: rgba(17, 17, 17, 0.78);
+}
+
+.lego-theme .timeline-item + .timeline-item {
+  margin-top: -1.5px;
+}
+
+.lego-theme .timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.lego-theme .timeline-item::before,
+.lego-theme .timeline-item.highlight::before {
+  content: none;
+  display: none;
+}
+
+.lego-theme .timeline-time {
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 14px 22px 12px;
+  border: 1.5px solid rgba(17, 17, 17, 0.18);
+  border-bottom: 0;
+  background: var(--timeline-brick-fill);
+  color: var(--timeline-text);
+  line-height: 1;
+}
+
+.lego-theme .timeline-content {
+  width: 100%;
+  margin-top: 0;
+  padding: 24px 22px 22px;
+  border: 1.5px solid rgba(17, 17, 17, 0.18);
+  border-top: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: var(--timeline-brick-fill);
+}
+
+.lego-theme .timeline-content h3 {
+  color: var(--timeline-text);
+}
+
+.lego-theme .timeline-content p {
+  color: var(--timeline-note);
+}
+
+.lego-theme .side-panel,
+.lego-theme .venue-panel,
+.lego-theme .rsvp-form,
+.lego-theme .thank-you-panel {
+  border-top: 0;
+  background: #fffdfa;
+}
+
+.lego-theme .list-check li {
+  border-top-color: rgba(17, 17, 17, 0.1);
+}
+
+.lego-theme .faq-card {
+  background: #fffdf8;
+}
+
+.lego-theme .faq-card summary::after {
+  color: var(--lego-red);
+}
+
+.lego-theme .countdown-section,
+.lego-theme .venue-section,
+.lego-theme .rsvp-section {
+  position: relative;
+  overflow: hidden;
+}
+
+.lego-theme .countdown-section {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 221, 34, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(35, 116, 198, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    var(--countdown-bg-image),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+  background-position:
+    center center,
+    center center,
+    center center,
+    var(--countdown-bg-position),
+    center center;
+  background-repeat: no-repeat;
+  background-size: auto, auto, auto, cover, auto;
+}
+
+.lego-theme .venue-section {
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 221, 34, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(35, 116, 198, 0.16), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    var(--venue-bg-image),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+  background-position:
+    center center,
+    center center,
+    center center,
+    var(--venue-bg-position),
+    center center;
+  background-repeat: no-repeat;
+  background-size: auto, auto, auto, cover, auto;
+}
+
+.lego-theme .rsvp-section {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+}
+
+.lego-theme .venue-section > .container,
+.lego-theme .rsvp-section > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.lego-theme .countdown-section::before,
+.lego-theme .venue-section::before,
+.lego-theme .rsvp-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: none;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.lego-theme .venue-meta article,
+.lego-theme .rsvp-summary article,
+.lego-theme .rsvp-info-card {
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 0;
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+}
+
+.lego-theme .venue-meta article,
+.lego-theme .rsvp-summary article {
+  --card-stud-count: 8;
+}
+
+.lego-theme .venue-meta,
+.lego-theme .rsvp-summary {
+  gap: 0;
+}
+
+.lego-theme .venue-meta article,
+.lego-theme .rsvp-summary article {
+  box-shadow: none;
+}
+
+.lego-theme .venue-meta article + article,
+.lego-theme .rsvp-summary article + article {
+  margin-top: -1.5px;
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 1),
+.lego-theme .rsvp-summary article:nth-child(4n + 1),
+.lego-theme .rsvp-info-card:nth-child(4n + 1) {
+  --card-brick-fill: var(--lego-blue);
+  --card-stud-opacity: 0.98;
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 2),
+.lego-theme .rsvp-summary article:nth-child(4n + 2),
+.lego-theme .rsvp-info-card:nth-child(4n + 2) {
+  --card-brick-fill: var(--lego-red);
+  --card-stud-opacity: 0.98;
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 3),
+.lego-theme .rsvp-summary article:nth-child(4n + 3),
+.lego-theme .rsvp-info-card:nth-child(4n + 3) {
+  --card-brick-fill: var(--lego-yellow);
+  --card-stud-opacity: 0.98;
+}
+
+.lego-theme .venue-meta article:nth-child(4n),
+.lego-theme .rsvp-summary article:nth-child(4n),
+.lego-theme .rsvp-info-card:nth-child(4n) {
+  --card-brick-fill: #ffffff;
+  --card-stud-opacity: 0;
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 1) span,
+.lego-theme .venue-meta article:nth-child(4n + 2) span,
+.lego-theme .rsvp-summary article:nth-child(4n + 1) span,
+.lego-theme .rsvp-summary article:nth-child(4n + 2) span,
+.lego-theme .rsvp-info-card:nth-child(4n + 1) span,
+.lego-theme .rsvp-info-card:nth-child(4n + 2) span {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 1) strong,
+.lego-theme .venue-meta article:nth-child(4n + 2) strong,
+.lego-theme .rsvp-summary article:nth-child(4n + 1) strong,
+.lego-theme .rsvp-summary article:nth-child(4n + 2) strong,
+.lego-theme .rsvp-info-card:nth-child(4n + 1) h3,
+.lego-theme .rsvp-info-card:nth-child(4n + 2) h3,
+.lego-theme .rsvp-info-card:nth-child(4n + 1) p,
+.lego-theme .rsvp-info-card:nth-child(4n + 2) p {
+  color: var(--white);
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 3) span,
+.lego-theme .venue-meta article:nth-child(4n) span,
+.lego-theme .rsvp-summary article:nth-child(4n + 3) span,
+.lego-theme .rsvp-summary article:nth-child(4n) span,
+.lego-theme .rsvp-info-card:nth-child(4n + 3) span,
+.lego-theme .rsvp-info-card:nth-child(4n) span {
+  color: rgba(17, 17, 17, 0.62);
+}
+
+.lego-theme .venue-meta article:nth-child(4n + 3) strong,
+.lego-theme .venue-meta article:nth-child(4n) strong,
+.lego-theme .rsvp-summary article:nth-child(4n + 3) strong,
+.lego-theme .rsvp-summary article:nth-child(4n) strong,
+.lego-theme .rsvp-info-card:nth-child(4n + 3) h3,
+.lego-theme .rsvp-info-card:nth-child(4n) h3,
+.lego-theme .rsvp-info-card:nth-child(4n + 3) p,
+.lego-theme .rsvp-info-card:nth-child(4n) p {
+  color: #111111;
+}
+
+.lego-theme .rsvp-contact a {
+  border-bottom-color: rgba(255, 255, 255, 0.3);
+}
+
+.lego-theme .rsvp-form input,
+.lego-theme .rsvp-form select,
+.lego-theme .rsvp-form textarea {
+  border-radius: 16px;
+  border-color: rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.94);
+}
+
+.lego-theme .rsvp-form input:focus,
+.lego-theme .rsvp-form select:focus,
+.lego-theme .rsvp-form textarea:focus {
+  border-color: var(--lego-blue);
+  box-shadow: 0 0 0 4px rgba(35, 116, 198, 0.12);
+}
+
+.lego-theme .mode-option {
+  border: 1.5px solid rgba(17, 17, 17, 0.12);
+  border-radius: 16px;
+  --card-brick-fill: #fffdf8;
+  background: var(--card-brick-fill);
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.06);
+}
+
+.lego-theme .mode-option input {
+  accent-color: var(--lego-red);
+}
+
+.lego-theme .thank-you-detail {
+  --card-brick-fill: #fffdf8;
+  background: var(--card-brick-fill);
+}
+
+.lego-theme .thank-you-inline-link {
+  color: var(--lego-red);
+}
+
+.lego-theme .site-footer {
+  border-top: 1.5px solid rgba(17, 17, 17, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.94)),
+    linear-gradient(180deg, #f7f2e8 0%, #ffffff 100%);
+}
+
+.music-page {
+  --lego-red: #d42219;
+  --lego-blue: #2374c6;
+  --lego-yellow: #ffdd22;
+  --lego-white: #fff8ea;
+  --lego-black: #121212;
+  font-family: "Nunito", "Roboto", sans-serif;
+  background:
+    radial-gradient(circle at 22px 22px, rgba(0, 0, 0, 0.05) 0, rgba(0, 0, 0, 0.05) 6px, transparent 7px),
+    linear-gradient(180deg, #f4f0e7 0%, #fbfaf7 38%, #ffffff 100%);
+  background-size: 120px 120px, auto;
+}
+
+.music-page .brand-wordmark,
+.music-stage-copy h1,
+.music-promo-copy h2,
+.music-copy h2,
+.music-page .section-heading h2,
+.music-promo-panel h3,
+.music-card h3 {
+  font-family: "Catamaran", sans-serif;
+  letter-spacing: 0.03em;
+}
+
+.music-page .hero-kicker,
+.music-page .section-kicker,
+.music-page .hero-meta span,
+.music-page .button,
+.music-page .music-fieldset legend,
+.music-page .music-card-label,
+.music-page .music-choice-card span,
+.music-page .music-toggle {
+  font-family: "Catamaran", sans-serif;
+}
+
+.music-page .button {
+  --brick-fill: var(--lego-red);
+  --brick-text: var(--white);
+}
+
+.music-page .button-primary {
+  --brick-fill: var(--lego-red);
+  --brick-text: var(--white);
+}
+
+.music-page .button-outline {
+  --brick-fill: var(--lego-yellow);
+  --brick-text: #111111;
+}
+
+.music-page .button-dark-outline {
+  --brick-fill: var(--lego-blue);
+  --brick-text: var(--white);
+}
+
+.music-stage {
+  position: relative;
+  overflow: hidden;
+  padding: 150px 0 92px;
+  color: var(--white);
+  background:
+    radial-gradient(circle at 16% 18%, rgba(255, 221, 34, 0.16), transparent 24%),
+    radial-gradient(circle at 82% 12%, rgba(35, 116, 198, 0.18), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 20%),
+    linear-gradient(135deg, #18233d 0%, #101010 44%, #0b1324 100%);
+}
+
+.music-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: none;
+  opacity: 0;
+}
+
+.music-stage-shell,
+.music-hub-layout,
+.music-promo-shell {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(320px, 1.05fr);
+  gap: 36px;
+  align-items: start;
+}
+
+.music-stage-shell {
+  position: relative;
+  z-index: 1;
+  align-items: center;
+}
+
+.music-stage-copy {
+  max-width: 560px;
+}
+
+.music-stage-copy h1 {
+  margin: 0;
+  font-size: clamp(3.3rem, 8vw, 6.3rem);
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.music-stage-note {
+  max-width: 480px;
+  margin: 18px 0 0;
+  padding: 22px;
+  background: var(--lego-blue);
+  color: var(--white);
+  font-size: 0.98rem;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+}
+
+.music-stage-copy .hero-meta,
+.music-stage-copy .hero-actions {
+  justify-content: flex-start;
+}
+
+.music-stage-lead {
+  max-width: 520px;
+  margin: 24px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 1.04rem;
+}
+
+.music-color-rack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.music-rack-brick {
+  display: block;
+  width: 64px;
+  height: 36px;
+  border: 1.5px solid rgba(17, 17, 17, 0.16);
+  border-radius: 14px;
+  box-shadow: 0 12px 22px rgba(0, 0, 0, 0.12);
+}
+
+.music-rack-blue {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    var(--lego-blue);
+}
+
+.music-rack-red {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    var(--lego-red);
+}
+
+.music-rack-yellow {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    var(--lego-yellow);
+}
+
+.music-rack-white {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.24), transparent 35%),
+    #ffffff;
+}
+
+.music-rack-black {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 35%),
+    #111111;
+}
+
+.music-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  min-height: 560px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.16);
+  border-radius: 34px;
+  box-shadow:
+    0 22px 52px rgba(0, 0, 0, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  isolation: isolate;
+}
+
+.music-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: none;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.music-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg, rgba(255, 255, 255, 0.26) 0%, transparent 26%, transparent 64%, rgba(0, 0, 0, 0.12) 100%);
+  pointer-events: none;
+}
+
+.music-column {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 48px 16px 100px;
+}
+
+.music-column::before {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  right: 16px;
+  height: 46px;
+  background-image: radial-gradient(circle at 18px 18px, rgba(255, 255, 255, 0.24) 0, rgba(255, 255, 255, 0.24) 11px, rgba(0, 0, 0, 0.08) 12px, transparent 13px);
+  background-size: 52px 46px;
+  pointer-events: none;
+  opacity: 0.44;
+}
+
+.music-column::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.22) 0, transparent 30%, transparent 60%, rgba(0, 0, 0, 0.12) 100%);
+  pointer-events: none;
+}
+
+.music-column-blue {
+  background: var(--lego-blue);
+}
+
+.music-column-red {
+  background: var(--lego-red);
+}
+
+.music-column-yellow {
+  background: var(--lego-yellow);
+}
+
+.music-column-white {
+  background: #ffffff;
+}
+
+.music-column-black {
+  background: var(--lego-black);
+}
+
+.music-figure {
+  position: relative;
+  z-index: 1;
+  max-width: 100%;
+  transform-origin: center bottom;
+  will-change: transform;
+}
+
+#lego1,
+#lego2,
+#lego3 {
+  width: min(78%, 210px);
+}
+
+#drums,
+#piano {
+  width: min(86%, 290px);
+}
+
+.music-toggle {
+  --brick-fill: var(--lego-red);
+  --brick-text: var(--white);
+  --brick-stud-count: 4;
+  position: absolute;
+  isolation: isolate;
+  left: 50%;
+  bottom: 28px;
+  z-index: 2;
+  inline-size: calc(var(--brick-stud-count) * var(--brick-stud-size));
+  overflow: visible;
+  min-height: 72px;
+  padding: 22px 16px 14px;
+  border: 1.5px solid rgba(17, 17, 17, 0.22);
+  border-radius: 0;
+  background: var(--brick-fill);
+  color: var(--brick-text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: center;
+  transform: translateX(-50%);
+  box-shadow: 0 16px 30px rgba(0, 0, 0, 0.2);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease;
+}
+
+.music-toggle::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  top: calc(var(--brick-stud-height) * -0.72);
+  width: calc(var(--brick-stud-count) * var(--brick-stud-size));
+  height: var(--brick-stud-height);
+  transform: translateX(-50%);
+  background: var(--brick-fill);
+  -webkit-mask-image: var(--brick-stud-mask);
+  -webkit-mask-size: var(--brick-stud-size) 100%;
+  -webkit-mask-repeat: repeat-x;
+  mask-image: var(--brick-stud-mask);
+  mask-size: var(--brick-stud-size) 100%;
+  mask-repeat: repeat-x;
+  opacity: 0.98;
+  filter: var(--brick-stud-filter);
+  pointer-events: none;
+}
+
+.music-toggle:hover,
+.music-toggle:focus-visible {
+  transform: translateX(-50%) translateY(-1px);
+  box-shadow: 0 20px 32px rgba(0, 0, 0, 0.24);
+}
+
+.anim1 {
+  animation-play-state: paused;
+}
+
+.anim1play {
+  animation: music-bounce 0.52s infinite;
+}
+
+.anim2play {
+  animation: music-bounce-tall 0.58s infinite;
+}
+
+.anim3play {
+  animation: music-bounce-wide 0.6s infinite;
+}
+
+.anim4play {
+  animation: music-pulse-large 0.24s infinite;
+}
+
+.anim5play {
+  animation: music-pulse-medium 0.42s infinite;
+}
+
+@keyframes music-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-58px);
+  }
+
+  50% {
+    transform: translateY(26px);
+  }
+
+  75% {
+    transform: translateY(-22px);
+  }
+}
+
+@keyframes music-bounce-tall {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(-70px);
+  }
+
+  50% {
+    transform: translateY(18px);
+  }
+
+  75% {
+    transform: translateY(-28px);
+  }
+}
+
+@keyframes music-bounce-wide {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateY(-48px) rotate(-1.5deg);
+  }
+
+  50% {
+    transform: translateY(18px) rotate(1deg);
+  }
+
+  75% {
+    transform: translateY(-18px) rotate(-0.5deg);
+  }
+}
+
+@keyframes music-pulse-large {
+  0%,
+  100% {
+    transform: scale(1.85);
+  }
+
+  70% {
+    transform: scale(2);
+  }
+}
+
+@keyframes music-pulse-medium {
+  0%,
+  100% {
+    transform: scale(1.38);
+  }
+
+  70% {
+    transform: scale(1.5);
+  }
+}
+
+.music-promo-section {
+  padding-top: 92px;
+}
+
+.music-set-section {
+  padding-top: 100px;
+  padding-bottom: 24px;
+}
+
+.music-set-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.music-set-card {
+  --card-brick-fill: #fffdf8;
+  overflow: visible;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 28px;
+  background: var(--card-brick-fill);
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.08);
+}
+
+.music-set-image-shell {
+  aspect-ratio: 1 / 1;
+  padding: 24px;
+  background: #fffdf8;
+}
+
+.music-set-image-shell img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.music-set-copy {
+  padding: 0 24px 24px;
+}
+
+.music-set-copy span {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--accent);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.music-set-copy h3 {
+  margin: 0;
+  color: #111111;
+  font-family: "Catamaran", sans-serif;
+  font-size: 1.55rem;
+  font-weight: 900;
+  line-height: 1.04;
+  text-transform: uppercase;
+}
+
+.music-set-copy p {
+  margin: 12px 0 0;
+  color: #555555;
+}
+
+.music-promo-copy,
+.music-copy {
+  max-width: 620px;
+}
+
+.music-promo-copy h2,
+.music-copy h2 {
+  margin: 0;
+  font-size: clamp(2.35rem, 5vw, 4rem);
+  line-height: 1.04;
+  text-transform: uppercase;
+}
+
+.music-promo-copy p,
+.music-copy p {
+  color: #423f39;
+}
+
+.music-promo-panel {
+  --card-brick-fill: var(--lego-yellow);
+  --card-stud-opacity: 0.98;
+  position: relative;
+  overflow: visible;
+  padding: 40px 30px 34px;
+  background: var(--card-brick-fill);
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 30px;
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.08);
+}
+
+.lego-theme .banner-block::before,
+.lego-theme .feature-box::before,
+.lego-theme .timeline-content::before,
+.lego-theme .side-panel::before,
+.lego-theme .venue-panel::before,
+.lego-theme .faq-card::before,
+.lego-theme .rsvp-form::before,
+.lego-theme .thank-you-detail::before,
+.lego-theme .venue-meta article::before,
+.lego-theme .rsvp-summary article::before,
+.lego-theme .rsvp-info-card::before,
+.lego-theme .mode-option::before,
+.music-set-card::before,
+.music-promo-panel::before,
+.music-summary article::before,
+.music-choice-card:not(.music-choice-card-instrument)::before,
+.music-form::before,
+.music-board-toolbar::before,
+.music-board-empty::before,
+.music-card::before {
+  content: none;
+}
+
+.music-promo-panel h3 {
+  margin: 0 0 10px;
+  color: #111111;
+  font-family: "Catamaran", sans-serif;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.music-promo-panel p {
+  margin: 0;
+  color: rgba(17, 17, 17, 0.78);
+}
+
+.music-stat-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.music-stat-grid article {
+  padding: 16px 18px;
+  border: 2px solid rgba(17, 17, 17, 0.1);
+  background: rgba(255, 255, 255, 0.68);
+}
+
+.music-stat-grid span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--accent);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.music-stat-grid strong {
+  color: #111111;
+  font-family: "Catamaran", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.music-summary {
+  margin-bottom: 0;
+}
+
+.music-summary article {
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 18px;
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.08);
+}
+
+.music-summary article:nth-child(1) {
+  --card-brick-fill: var(--lego-blue);
+  --card-stud-opacity: 0.98;
+}
+
+.music-summary article:nth-child(2) {
+  --card-brick-fill: var(--lego-red);
+  --card-stud-opacity: 0.98;
+}
+
+.music-summary article:nth-child(3) {
+  --card-brick-fill: var(--lego-yellow);
+  --card-stud-opacity: 0.98;
+}
+
+.music-summary article:nth-child(4) {
+  --card-brick-fill: #ffffff;
+  --card-stud-opacity: 0;
+}
+
+.music-summary article:nth-child(3) span,
+.music-summary article:nth-child(3) strong,
+.music-summary article:nth-child(4) span,
+.music-summary article:nth-child(4) strong {
+  color: #111111;
+}
+
+.music-fieldset {
+  margin: 0 0 16px;
+  padding: 0;
+  border: 0;
+}
+
+.music-fieldset legend {
+  margin-bottom: 10px;
+  color: var(--text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.music-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.music-choice-grid-instruments {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.music-choice-card {
+  --card-brick-fill: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 16px;
+  background: var(--card-brick-fill);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    background-color 180ms ease;
+}
+
+.music-choice-card input {
+  width: auto;
+  margin: 0;
+}
+
+.music-choice-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 18px 28px rgba(0, 0, 0, 0.12);
+}
+
+.music-choice-card:not(.music-choice-card-instrument):has(input:checked) {
+  --card-brick-fill: var(--lego-yellow);
+  --card-stud-opacity: 0.98;
+  background: var(--card-brick-fill);
+  border-color: rgba(17, 17, 17, 0.18);
+  box-shadow:
+    0 18px 28px rgba(0, 0, 0, 0.12),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.music-choice-card span {
+  color: var(--text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.music-instrument-option {
+  --instrument-bg-image: none;
+  --instrument-bg-size: 66%;
+  --instrument-bg-position: center 56%;
+  position: relative;
+  display: block;
+  margin: 0;
+  aspect-ratio: 1 / 1;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.08);
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.music-instrument-option-guitar {
+  --instrument-bg-size: 58%;
+  --instrument-bg-position: center 60%;
+  --instrument-bg-image: url("https://www.brickeconomy.com/resources/images/sets/lego-21329-1_large.jpg");
+}
+
+.music-instrument-option-bass {
+  --instrument-bg-size: 66%;
+  --instrument-bg-position: center 58%;
+  --instrument-bg-image: url("https://www.brickeconomy.com/resources/images/sets/lego-21334-1_large.jpg");
+}
+
+.music-instrument-option-drums {
+  --instrument-bg-size: 72%;
+  --instrument-bg-position: center 46%;
+  --instrument-bg-image: url("https://assets.codepen.io/513624/pngkey.com-drum-set-png-879883_5.png");
+}
+
+.music-instrument-option-piano {
+  --instrument-bg-size: 63%;
+  --instrument-bg-position: center 58%;
+  --instrument-bg-image: url("https://www.brickeconomy.com/resources/images/sets/lego-21323-1_large.jpg");
+}
+
+.music-instrument-option-synth {
+  --instrument-bg-size: 68%;
+  --instrument-bg-position: center 58%;
+  --instrument-bg-image: url("https://www.brickeconomy.com/resources/images/sets/lego-43115-1_large.jpg");
+}
+
+.music-instrument-option-voice {
+  --instrument-bg-size: 61%;
+  --instrument-bg-position: center 58%;
+  --instrument-bg-image: url("https://www.brickeconomy.com/resources/images/sets/lego-42610-1_large.jpg");
+}
+
+.music-instrument-option::before {
+  content: "";
+  position: absolute;
+  inset: 10px 10px 34px;
+  background-image: var(--instrument-bg-image);
+  background-position: var(--instrument-bg-position);
+  background-repeat: no-repeat;
+  background-size: var(--instrument-bg-size);
+  pointer-events: none;
+}
+
+.music-instrument-input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.music-instrument-option:has(.music-instrument-input:focus-visible),
+.music-instrument-option:has(.music-instrument-input:checked) {
+  border-color: var(--lego-blue);
+  box-shadow:
+    0 0 0 4px rgba(35, 116, 198, 0.22),
+    0 16px 28px rgba(0, 0, 0, 0.12);
+}
+
+.music-instrument-label {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  z-index: 2;
+  color: #111111;
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.92rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  text-shadow: none;
+  pointer-events: none;
+}
+
+.music-form {
+  --card-brick-fill: #fffdfa;
+  position: relative;
+  overflow: visible;
+  padding: 40px 30px 30px;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 30px;
+  background: var(--card-brick-fill);
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.08);
+}
+
+.music-form input:not(.music-instrument-input),
+.music-form textarea {
+  border-radius: 16px;
+  border: 2px solid rgba(17, 17, 17, 0.12);
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.music-board-toolbar {
+  --card-brick-fill: var(--lego-blue);
+  --card-stud-opacity: 0.98;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  margin-bottom: 32px;
+  padding: 40px 28px 28px;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 30px;
+  background: var(--card-brick-fill);
+  box-shadow: 0 24px 46px rgba(0, 0, 0, 0.12);
+}
+
+.music-board-toolbar p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.86);
+}
+
+.music-board-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.music-board-empty {
+  --card-brick-fill: #f9efbf;
+  margin: 24px 0 0;
+  padding: 22px 24px;
+  border: 1.5px dashed rgba(17, 17, 17, 0.26);
+  border-radius: 24px;
+  background: var(--card-brick-fill);
+  color: #333333;
+}
+
+.music-board-empty[hidden] {
+  display: none;
+}
+
+.music-card {
+  --brick-bg: var(--lego-blue);
+  --brick-text: #ffffff;
+  --brick-label: rgba(255, 255, 255, 0.92);
+  --brick-note: rgba(255, 255, 255, 0.88);
+  --brick-chip-bg: rgba(255, 255, 255, 0.94);
+  --brick-chip-text: #111111;
+  --card-brick-fill: var(--brick-bg);
+  position: relative;
+  overflow: visible;
+  padding: 40px 24px 28px;
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 30px;
+  background: var(--card-brick-fill);
+  box-shadow: 0 24px 40px rgba(0, 0, 0, 0.1);
+  color: var(--brick-text);
+}
+
+.music-card::after {
+  display: none;
+}
+
+.music-card:nth-child(4n + 1) {
+  --brick-bg: var(--lego-blue);
+  --brick-text: #ffffff;
+  --brick-label: rgba(255, 255, 255, 0.92);
+  --brick-note: rgba(255, 255, 255, 0.88);
+  --brick-chip-bg: rgba(255, 255, 255, 0.94);
+  --brick-chip-text: #111111;
+  --card-stud-opacity: 0.98;
+}
+
+.music-card:nth-child(4n + 2) {
+  --brick-bg: var(--lego-red);
+  --brick-text: #ffffff;
+  --brick-label: rgba(255, 255, 255, 0.92);
+  --brick-note: rgba(255, 255, 255, 0.88);
+  --brick-chip-bg: rgba(255, 255, 255, 0.94);
+  --brick-chip-text: #111111;
+  --card-stud-opacity: 0.98;
+}
+
+.music-card:nth-child(4n + 3) {
+  --brick-bg: var(--lego-yellow);
+  --brick-text: #111111;
+  --brick-label: rgba(17, 17, 17, 0.92);
+  --brick-note: rgba(17, 17, 17, 0.82);
+  --brick-chip-bg: #111111;
+  --brick-chip-text: #ffffff;
+  --card-stud-opacity: 0.98;
+}
+
+.music-card:nth-child(4n + 4) {
+  --brick-bg: #ffffff;
+  --brick-text: #111111;
+  --brick-label: rgba(17, 17, 17, 0.92);
+  --brick-note: rgba(17, 17, 17, 0.76);
+  --brick-chip-bg: #111111;
+  --brick-chip-text: #ffffff;
+  --card-stud-opacity: 0;
+}
+
+.music-card h3 {
+  margin: 0 0 18px;
+  color: var(--brick-text);
+  font-size: 1.8rem;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.music-card-block + .music-card-block {
+  margin-top: 14px;
+}
+
+.music-card-label {
+  display: block;
+  margin-bottom: 8px;
+  color: var(--brick-label);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.music-chip-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.music-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 999px;
+  background: var(--brick-chip-bg);
+  color: var(--brick-chip-text);
+  font-family: "Catamaran", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.music-chip-muted {
+  background: rgba(255, 255, 255, 0.35);
+  color: var(--brick-text);
+}
+
+.music-card-note {
+  margin: 8px 0 0;
+  color: var(--brick-note);
+}
+
+.leaderboard-container {
+  background: var(--white);
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.08);
+}
+
+.leaderboard-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.leaderboard-list li {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+  font-size: 1.1rem;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.leaderboard-list li:last-child {
+  border-bottom: 0;
+}
+
+.player-rank {
+  font-size: 1rem;
+  font-weight: 900;
+  color: var(--muted);
+  min-width: 20px;
+  text-align: right;
+}
+
+.player-name {
+  flex-grow: 1;
+  color: var(--text);
+}
+
+.player-score {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--lego-blue);
+}
+
+.mission-board-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.mission-card {
+  background: var(--white);
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 28px;
+  padding: 24px;
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+}
+
+.mission-card.completed {
+  background-color: #f7f2e8;
+}
+
+.mission-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.mission-card h3 {
+  margin: 0;
+  font-family: "Catamaran", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.mission-points {
+  background: var(--lego-yellow);
+  color: var(--black);
+  padding: 4px 10px;
+  border-radius: 99px;
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.mission-card p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  flex-grow: 1;
+}
+
+.mission-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.completion-status {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.mission-actions .button-small {
+    min-height: 40px;
+    padding: 0 18px;
+    font-size: 0.8rem;
+}
+
+#claim-mission-list {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+#mission-title-preview {
+    margin-top: -8px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.mission-table-container {
+  background: var(--white);
+  border: 1.5px solid rgba(17, 17, 17, 0.14);
+  border-radius: 28px;
+  padding: 16px;
+  box-shadow: 0 24px 42px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+}
+
+.mission-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mission-table th,
+.mission-table td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.1);
+}
+
+.mission-table th {
+  font-family: "Catamaran", sans-serif;
+  font-weight: 800;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.mission-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.mission-points-cell,
+.mission-id-cell {
+  font-family: "Catamaran", sans-serif;
+  font-weight: 900;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.mission-points-cell {
+  color: var(--lego-green);
+}
+
+.mission-id-cell {
+    color: var(--lego-red);
+}
+
+.gallery-controls {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.gallery-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.gallery-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.gallery-item-trigger {
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.gallery-item-trigger img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 16px;
+    border: 1.5px solid rgba(17, 17, 17, 0.1);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.07);
+}
+
+.gallery-caption {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding: 0 8px;
+    text-align: left;
+}
+
+body.photo-preview-open {
+    overflow: hidden;
+}
+
+.photo-preview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(18, 18, 18, 0.92);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+}
+
+.photo-preview-panel {
+    position: relative;
+    max-width: 1200px;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.photo-preview-image {
+    display: block;
+    max-width: 100%;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    transition: opacity 200ms ease;
+}
+
+.photo-preview-caption {
+    color: rgba(255, 255, 255, 0.8);
+    text-align: center;
+    padding: 0 48px;
+}
+
+.photo-preview-close {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-preview-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 70px;
+    border: none;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 2.5rem;
+    cursor: pointer;
+    transition: background-color 150ms ease;
+}
+
+.photo-preview-nav:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.photo-preview-nav-prev {
+    left: 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.photo-preview-nav-next {
+    right: 0;
+    border-radius: 8px 0 0 8px;
+}
+
+.photo-preview-spinner {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+}
+
+.photo-preview-spinner::after {
+    content: '';
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.site-footer {
+  border-top: 1px solid #ededed;
+  background: var(--white);
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 34px 0;
+}
+
+.footer-inner p {
+  margin: 0;
+  color: var(--muted);
+}
+
+.footer-inner strong {
+  color: var(--text);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.has-js .reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 520ms ease,
+    transform 520ms ease;
+}
+
+.has-js .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 1040px) {
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .schedule-layout,
+  .venue-layout,
+  .rsvp-layout,
+  .music-stage-shell,
+  .music-hub-layout,
+  .music-promo-shell,
+  .music-set-grid,
+  .music-board-grid,
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .music-choice-grid-instruments {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .nav-toggle {
+    display: inline-block;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: 84px;
+    left: 16px;
+    right: 16px;
+    display: grid;
+    gap: 10px;
+    padding: 14px;
+    background: rgba(0, 0, 0, 0.96);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease;
+  }
+
+  body.nav-open .site-nav {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .site-nav a {
+    padding: 10px 12px;
+    background: #181818;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .site-nav a.nav-action {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .lego-theme .site-nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    padding: 14px;
+    background: rgba(13, 21, 39, 0.98);
+    border: 1.5px solid rgba(255, 255, 255, 0.18);
+    border-radius: 18px;
+    box-shadow: 0 24px 42px rgba(0, 0, 0, 0.32);
+  }
+
+  .lego-theme .site-nav a {
+    inline-size: auto;
+    min-height: 64px;
+    padding: 14px 10px;
+    font-size: 0.9rem;
+    line-height: 1.05;
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.18);
+    white-space: normal;
+  }
+
+  .lego-theme .site-nav a + a {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  body.nav-open .nav-toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  body.nav-open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+  }
+
+  body.nav-open .nav-toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .event-banner-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .banner-block {
+    border-right: 0;
+    border-bottom: 1px solid #ededed;
+  }
+
+  .lego-theme .banner-block {
+    border-bottom-color: rgba(17, 17, 17, 0.14);
+  }
+
+  .banner-block:last-child {
+    border-bottom: 0;
+  }
+
+  .brick-banner-buttons {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    margin: 0;
+  }
+
+  .brick-banner-button {
+    margin: 0;
+    inline-size: auto;
+  }
+
+  .music-board-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .section,
+  .countdown-section,
+  .rsvp-section {
+    padding: 110px 0 70px;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 126px 0 112px;
+  }
+
+  .music-stage {
+    padding: 132px 0 78px;
+  }
+
+  .hero-venue {
+    line-height: 1.8;
+  }
+
+  .hero-separator {
+    display: none;
+  }
+
+  .countdown-grid {
+    gap: 26px;
+  }
+
+  .hero-inner {
+    gap: 42px;
+  }
+
+  .timeline {
+    padding-left: 24px;
+  }
+
+  .timeline-item {
+    padding-left: 24px;
+  }
+
+  .lego-theme .timeline,
+  .lego-theme .timeline-item {
+    padding-left: 0;
+  }
+
+  .lego-theme .venue-meta article,
+  .lego-theme .rsvp-summary article {
+    --card-stud-count: 6;
+  }
+
+  .music-grid {
+    min-height: 420px;
+  }
+
+  .music-column {
+    padding: 30px 10px 88px;
+  }
+
+  .music-toggle {
+    min-width: 0;
+    width: calc(100% - 28px);
+  }
+
+  .music-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .music-choice-grid-instruments {
+    grid-template-columns: 1fr;
+  }
+
+  .rsvp-page-section {
+    padding-top: clamp(88px, 14vw, 120px);
+    padding-bottom: 28px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 540px) {
+  .hero-copy h1 {
+    font-size: clamp(3rem, 17vw, 4.8rem);
+  }
+
+  .hero-actions,
+  .form-actions,
+  .callout-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button {
+    width: auto;
+  }
+
+  .lego-theme .venue-meta article,
+  .lego-theme .rsvp-summary article {
+    --card-stud-count: 5;
+  }
+
+  .count-segment {
+    min-width: calc(50% - 13px);
+  }
+
+  .rsvp-form {
+    padding: clamp(18px, 5vw, 24px);
+  }
+
+  .music-grid {
+    min-height: 360px;
+  }
+
+  #drums,
+  #piano {
+    width: min(94%, 200px);
+  }
+
+  #lego1,
+  #lego2,
+  #lego3 {
+    width: min(86%, 148px);
+  }
+
+  .name-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FantaMatte | Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage lego-theme" data-nav-current="fantamatte">
+    <div data-site-header></div>
+
+    <main class="subpage-main">
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="subpage-copy reveal">
+            <p class="hero-kicker">The Secret Game</p>
+            <h1>FantaMatte</h1>
+            <p class="hero-lead">
+              Complete secret missions during the party to earn points and become the FantaMatte champion!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Missions</p>
+            <h2>Mission Board</h2>
+          </div>
+          <div class="mission-table-container reveal" id="mission-board"></div>
+        </div>
+      </section>
+
+      <section class="section section-white">
+        <div class="container rsvp-layout">
+            <div class="rsvp-copy reveal">
+                <h2>Claim Missions</h2>
+                <p>
+                    Enter the ID of the mission you completed, add some notes, and upload your proof to claim the points!
+                </p>
+                <div id="claim-feedback" class="form-status" aria-live="polite"></div>
+            </div>
+            <form class="rsvp-form reveal" id="claim-form">
+                <label>
+                    Your Username
+                    <small>(Use the same one from your RSVP)</small>
+                    <input type="text" name="username" placeholder="alex_morgan" required />
+                </label>
+
+                <label>
+                    Mission ID
+                    <small>Enter the ID from the mission board above.</small>
+                    <input type="number" name="mission_id" placeholder="e.g., 4" required />
+                </label>
+                <p id="mission-title-preview" class="form-hint"></p>
+
+                <label>
+                    Notes
+                    <small>Add a fun caption for the gallery!</small>
+                    <textarea name="notes" rows="3" placeholder="What happened during the mission?"></textarea>
+                </label>
+
+                <label>
+                    Proof
+                    <small>(Upload a photo or video as evidence.)</small>
+                    <input type="file" name="proof" id="proof-upload" />
+                </label>
+
+                <div class="form-actions">
+                    <button class="button button-success brick-6" type="submit">Claim Points</button>
+                </div>
+            </form>
+        </div>
+      </section>
+
+      <section class="section section-light">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Leaderboard</h2>
+          </div>
+          <div class="leaderboard-container reveal" id="leaderboard-container">
+            <p>No players yet. Be the first to complete a mission!</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section-white">
+        <div class="container">
+          <div class="section-heading reveal">
+            <h2>Proof Gallery</h2>
+            <p>A collection of glorious moments from completed missions.</p>
+          </div>
+          <div class="gallery-controls reveal">
+              <button class="button button-primary brick-6" id="load-gallery-btn">Show Gallery</button>
+          </div>
+          <div class="gallery-container reveal" id="gallery-container">
+            <p>Click the button to load the gallery.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <div data-site-footer></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+    <script src="fantamatte.js"></script>
+  </body>
+</html>

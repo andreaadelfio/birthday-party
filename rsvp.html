@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RSVP | Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+    </script>
+    <script type="text/javascript">
+      (function(){
+          emailjs.init({
+            publicKey: "N50dhCycV13fa30WD",
+          });
+      })();
+    </script>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage lego-theme" data-nav-current="registration">
+    <div data-site-header></div>
+    <main class="subpage-main">
+      <section class="rsvp-section rsvp-page-section">
+        <div class="container rsvp-layout">
+          <div class="rsvp-copy reveal">
+            <h2>Please reply by TODAY!</h2>
+            <!-- <p class="rsvp-contact">
+              Contact:
+              <a href="#" data-contact-link data-contact-email></a>
+            </p> -->
+
+            <div class="rsvp-summary">
+              <article>
+                <span>When?</span>
+                <strong data-display-date></strong>
+              </article>
+              <!-- <article>
+                <span>Time</span>
+                <strong data-display-time></strong>
+              </article> -->
+              <article>
+                <span>Where?</span>
+                <strong data-venue-name></strong>
+              </article>
+              <!-- <article>
+                <span>Address</span>
+                <strong data-address></strong>
+              </article> -->
+            </div>
+
+            <div class="rsvp-info-grid">
+              <article class="rsvp-info-card">
+                <span>Groups</span>
+                <div class="rsvp-info-card-content" id="groups-list">
+                  Loading groups...
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <form class="rsvp-form reveal" id="rsvp-form">
+            <div class="name-grid">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Alex" required />
+              </label>
+
+              <label>
+                Surname
+                <input type="text" name="surname" placeholder="Morgan" required />
+              </label>
+            </div>
+
+            <label>
+              Username
+              <small>(To identify you in case you want to change your registration)</small>
+              <input
+                type="text"
+                name="username"
+                placeholder="alex_morgan"
+                required
+              />
+            </label>
+
+            <label>
+              Group
+              <select placeholer="Choose" name="group_slug" id="group-slug" disabled>
+                <option value="" selected>Loading groups...</option>
+              </select>
+            </label>
+
+            <label>
+              Number of guests
+              <input type="number" name="guests" value="1" min="1" max="10" required/>
+            </label>
+
+            <label>
+              If you are coming from abroad, write the dates of your stay so that we can help coordinate!
+              <small>(Even provisional dates would be helpful!)</small>
+              <textarea
+                name="stay_dates"
+                rows="4"
+                placeholder="E.g. from July 30th to August 2nd"
+              ></textarea>
+            </label>
+
+            <label>
+              If you are a local friend, you may consider the possibility to host another wonderful friend of mine from abroad.
+              If you decide to do so, please write here your availability (and/or text me privately!)
+              <textarea
+                name="host_dates"
+                rows="4"
+                placeholder="E.g. one person from July 30th to July 31st"
+              ></textarea>
+            </label>
+
+            <label>
+              Message or dietary notes
+              <textarea
+                name="notes"
+                rows="4"
+                placeholder="Vegetarian, allergy details, or a short note for the host"
+              ></textarea>
+            </label>
+
+            <label class="checkbox-label">
+              <input type="checkbox" name="will_be_there" checked />
+              Will you be there? <small>(Uncheck if you can't make it, we will miss you!)</small>
+            </label>
+
+            <label class="checkbox-label">
+              <input type="checkbox" name="hosted_by_friend" />
+              If there are available spots, I would like to be hosted by a local friend. <small>(We will try to accommodate as many people as possible, but we can't promise anything!)</small>
+            </label>
+
+            <p class="form-hint">
+              If you need to update your info, send the form again with the same username.
+            </p>
+
+            <div class="form-actions">
+              <button class="button button-success brick-6" type="submit">
+                Send RSVP
+              </button>
+              <!-- <button class="button button-outline brick-5" type="button" data-download-ics>
+                Add to calendar
+              </button> -->
+            </div>
+
+            <p class="form-status" id="form-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- <div class="hero-actions">
+      <a class="button button-dark-outline brick-6" href="index.html">
+        Back to event page
+      </a>
+      <a class="button button-primary brick-5" href="work_in_progress.html">
+        Check the schedule
+      </a>
+      <button class="button button-outline brick-5" type="button" data-download-ics>
+        Add to calendar
+      </button>
+    </div> -->
+
+    <div data-site-footer></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

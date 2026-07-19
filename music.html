@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Music | Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage music-page lego-theme" data-nav-current="music">
+    <div data-site-header></div>
+
+    <main class="subpage-main">
+      <section class="music-stage">
+        <div class="container music-hub-layout">
+          <div class="music-copy reveal">
+            <p class="section-kicker">Your setup</p>
+            <h2>Tell people what you can play.</h2>
+
+            <div class="music-stage-note">
+              If you play an instrument, or if you like to sing, why not delight our friends with a jam session 
+              or a mini concert? Fill in the form below to let us know what you would like to do!
+              At the bottom of the page you will find cards with other people that registered and that you could play with!
+
+              I will provide a stage, some instruments (for instance a drum set), and a sound system.
+              Please indicate in the form if you need anything and, very importantly, if you can BRING anything!
+            </div>
+
+            <!-- <div class="hero-actions">
+              <a class="button button-primary brick-5" href="rsvp.html">
+                Open registration
+              </a>
+              <button class="button button-outline brick-5" type="button" data-download-ics>
+                Add to calendar
+              </button>
+            </div> -->
+          </div>
+
+          <form class="rsvp-form music-form reveal" id="music-form">
+            <div class="name-grid">
+              <label>
+                Name
+                <input type="text" name="name" placeholder="Alex" required />
+              </label>
+
+              <label>
+                Surname
+                <input type="text" name="surname" placeholder="Morgan" required />
+              </label>
+            </div>
+
+            <label>
+              Username
+              <input
+                type="text"
+                name="username"
+                placeholder="alex_morgan"
+                required
+              />
+            </label>
+
+            <fieldset class="music-fieldset">
+              <legend>Instruments you play</legend>
+              <div class="music-choice-grid music-choice-grid-instruments">
+                <label class="music-instrument-option music-instrument-option-guitar">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Guitar"
+                  />
+                  <span class="music-instrument-label">Guitar</span>
+                </label>
+                <label class="music-instrument-option music-instrument-option-bass">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Bass"
+                  />
+                  <span class="music-instrument-label">Bass</span>
+                </label>
+                <label class="music-instrument-option music-instrument-option-drums">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Drums"
+                  />
+                  <span class="music-instrument-label">Drums</span>
+                </label>
+                <label class="music-instrument-option music-instrument-option-piano">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Piano"
+                  />
+                  <span class="music-instrument-label">Piano</span>
+                </label>
+                <label class="music-instrument-option music-instrument-option-synth">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Synth"
+                  />
+                  <span class="music-instrument-label">Synth</span>
+                </label>
+                <label class="music-instrument-option music-instrument-option-voice">
+                  <input
+                    class="music-instrument-input"
+                    type="checkbox"
+                    name="instruments"
+                    value="Voice"
+                  />
+                  <span class="music-instrument-label">Voice</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label>
+              Other instruments
+              <input
+                type="text"
+                name="other_instruments"
+                placeholder="Sax, percussion, violin"
+              />
+            </label>
+
+
+            <fieldset class="music-fieldset">
+              <legend>Genres you enjoy</legend>
+              <div class="music-choice-grid">
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Rock" />
+                  <span>Rock</span>
+                </label>
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Indie" />
+                  <span>Indie</span>
+                </label>
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Funk" />
+                  <span>Funk</span>
+                </label>
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Jazz" />
+                  <span>Jazz</span>
+                </label>
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Pop" />
+                  <span>Pop</span>
+                </label>
+                <label class="music-choice-card">
+                  <input type="checkbox" name="genres" value="Electronic" />
+                  <span>Electronic</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <label>
+              Other genres
+              <input
+                type="text"
+                name="other_genres"
+                placeholder="Disco, ambient, soundtrack"
+              />
+            </label>
+
+            <fieldset class="music-fieldset">
+              <legend>What do you want to do?</legend>
+              <div class="music-choice-grid">
+                <label class="music-choice-card">
+                  <input type="checkbox" name="collaboration_modes" value="Jam session" />
+                  <span>Jam session</span>
+                </label>
+                <label class="music-choice-card">
+                  <input
+                    type="checkbox"
+                    name="collaboration_modes"
+                    value="Mini concert"
+                  />
+                  <span>Mini concert</span>
+                </label>
+                <!-- <label class="music-choice-card">
+                  <input type="checkbox" name="collaboration_modes" value="Open stage" />
+                  <span>Open stage</span>
+                </label>
+                <label class="music-choice-card">
+                  <input
+                    type="checkbox"
+                    name="collaboration_modes"
+                    value="Acoustic corner"
+                  />
+                  <span>Acoustic corner</span>
+                </label> -->
+              </div>
+            </fieldset>
+
+            <label>
+              Availability or setup notes
+              <textarea
+                name="availability_notes"
+                rows="4"
+                placeholder="I can bring a guitar amp after dinner, available after cake, can do a 20-minute set, I need drums"
+              ></textarea>
+            </label>
+
+            <label>
+              What kind of session would you love?
+              <textarea
+                name="performance_notes"
+                rows="4"
+                placeholder="Looking for bass plus drums for a funky jam, happy to back someone on keys"
+              ></textarea>
+            </label>
+
+            <p class="form-hint">
+              Send it again with the same username if you need to change
+              something.
+            </p>
+
+            <div class="form-actions">
+              <button class="button button-primary brick-6" type="submit">
+                Save your details
+              </button>
+            </div>
+
+            <p class="form-status" id="music-status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="section section-white" id="music-board-section">
+        <div class="container">
+          <div class="section-heading reveal">
+            <p class="section-kicker">Who's in</p>
+            <h2>See who is already in for a jam.</h2>
+          </div>
+
+          <div class="music-board-grid" id="music-board" aria-live="polite"></div>
+          <p class="music-board-empty" id="music-empty">
+            No music profiles yet. If you play, start here.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <div data-site-footer></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="supabase-config.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

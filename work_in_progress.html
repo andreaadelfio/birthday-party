@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matteo's Birthday</title>
+    <script>
+      document.documentElement.classList.add("has-js");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;family=Roboto:wght@300;400;500;700&amp;family=Catamaran:wght@400;700;800;900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="subpage lego-theme" data-nav-current="work_in_progress">
+    <div data-site-header></div>
+
+    <main class="subpage-main">
+      <section class="subpage-hero">
+        <div class="container subpage-hero-inner">
+          <div class="hero-countdown reveal" id="countdown" aria-label="Time until the event">
+            <div class="countdown-grid">
+              <div class="count-segment">
+                <span id="days">00</span>
+                <small>Days</small>
+              </div>
+              <div class="count-segment">
+                <span id="hours">00</span>
+                <small>Hours</small>
+              </div>
+              <div class="count-segment">
+                <span id="minutes">00</span>
+                <small>Minutes</small>
+              </div>
+              <div class="count-segment">
+                <span id="seconds">00</span>
+                <small>Seconds</small>
+              </div>
+            </div>
+          </div>
+          
+          <div class="hero-copy reveal">
+            <h1>
+              <span class="hero-accent">Work in Progress</span>
+            </h1>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div data-site-footer></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
