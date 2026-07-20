@@ -159,7 +159,7 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
         
-        setFeedback(claimFeedback, `Uploading proof...`, "muted");
+        setFeedback(claimFeedback, `Still uploading proof...`, "muted");
         // Compress image if it's an image, otherwise upload original file (for videos)
         const fileToUpload = isImage ? await compressImage(proofFile) : proofFile;
 
@@ -201,6 +201,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (file.size / 1024 / 1024 < 8) {
         return file;
     }
+    setFeedback(claimFeedback, `Compressing image...`, "muted");
 
     const options = {
       maxSizeMB: 8, // Set max size to 8MB, safely under the 10MB limit
