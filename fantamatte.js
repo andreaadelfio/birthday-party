@@ -15,6 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const CLOUDINARY_FOLDER = 'birthday'; // Upload to the 'birthday' folder
   const CLOUDINARY_GALLERY_TAG = 'fantamatte-proof'; // The tag to list gallery images
 
+  // --- File Size Limits ---
+  const MAX_IMAGE_MB = 10; // Handled by compression logic
+  const MAX_VIDEO_MB = 100;
+
   // --- Mission Data ---
   let missions = [];
   let galleryPage = 0;
@@ -147,6 +151,13 @@ document.addEventListener("DOMContentLoaded", () => {
         setFeedback(claimFeedback, "Preparing and uploading proof...", "muted");
 
         const isImage = proofFile.type.startsWith('image/');
+        const isVideo = proofFile.type.startsWith('video/');
+
+        if (isVideo && proofFile.size > MAX_VIDEO_MB * 1024 * 1024) {
+            setFeedback(claimFeedback, `Video is too large. Please upload a file smaller than ${MAX_VIDEO_MB}MB.`, "error");
+            return;
+        }
+
         // Compress image if it's an image, otherwise upload original file (for videos)
         const fileToUpload = isImage ? await compressImage(proofFile) : proofFile;
 
