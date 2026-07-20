@@ -52,10 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <tr class="epic-mission-row">
             <td class="mission-id-cell">0</td>
             <td>Go to an Epic Mission</td>
-            <td class="mission-points-cell">The points will be evaluated with Matteo based on the epicness of the mission.</td>
+            <td class="mission-points-cell">*</td>
           </tr>
         </tbody>
       </table>
+      <p class="mission-points-cell">*Based on the epicness of the mission, the points for the Epic Mission will be evaluated with Matteo at the end of the party when we will reveal the game.</p>
     `;
   };
 

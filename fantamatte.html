@@ -74,23 +74,15 @@
 
       <section class="section section-white">
         <div class="container rsvp-layout">
-            <div class="rsvp-copy reveal">
-                <h2>Claim Missions</h2>
-                <p>
-                    Enter the ID of the mission you completed, add some notes, and upload your proof to claim the points!
-                </p>
-                <div id="claim-feedback" class="form-status" aria-live="polite"></div>
-            </div>
             <form class="rsvp-form reveal" id="claim-form">
                 <label>
                     Your Username
-                    <small>(Use the same one from your RSVP)</small>
                     <input type="text" name="username" placeholder="alex_morgan" required />
                 </label>
 
                 <label>
                     Mission ID
-                    <small>Enter the ID from the mission board above.</small>
+                    <small>Enter the <span class="text-red">red ID</span> from the mission board above.</small>
                     <input type="number" name="mission_id" placeholder="e.g., 4" required />
                 </label>
                 <p id="mission-title-preview" class="form-hint"></p>
@@ -111,6 +103,8 @@
                     <button class="button button-success brick-6" type="submit">Claim Points</button>
                     <div id="claim-feedback" class="form-status" aria-live="polite"></div>
                 </div>
+                <div id="claim-feedback" class="form-status" aria-live="polite"></div>
+
             </form>
         </div>
       </section>
@@ -129,11 +123,10 @@
       <section class="section section-white">
         <div class="container">
           <div class="section-heading reveal">
-            <h2>Proof Gallery</h2>
-            <p>A collection of glorious moments from completed missions.</p>
+            <h2>Gallery</h2>
+            <p>Want to see what is going on at the Party?</p>
           </div>
           <div class="gallery-container reveal" id="gallery-container">
-            <p>Click the button below to load the gallery.</p>
           </div>
           <div class="gallery-controls reveal">
               <button class="button button-primary brick-6" id="load-gallery-btn">Show Gallery</button>
