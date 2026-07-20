@@ -31,20 +31,20 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Rendering Functions ---
   const renderMissionBoard = (missionsData) => {
     if (!missionBoard) return;
-    const sortedMissions = missionsData.sort((a, b) => a.points - b.points);
+    const sortedMissions = missionsData.sort((a, b) => (a.mission_number || Infinity) - (b.mission_number || Infinity));
     missionBoard.innerHTML = `
       <table class="mission-table">
         <thead>
           <tr>
-            <th>ID</th>
+            <th>#</th>
             <th>Mission</th>
             <th>Points</th>
           </tr>
         </thead>
         <tbody>
-          ${sortedMissions.map(mission => `
+          ${sortedMissions.filter(m => m.mission_number).map(mission => `
             <tr>
-              <td class="mission-id-cell">${mission.id}</td>
+              <td class="mission-id-cell">${mission.mission_number}</td>
               <td>${mission.title}</td>
               <td class="mission-points-cell">${mission.points}</td>
             </tr>
@@ -52,11 +52,11 @@ document.addEventListener("DOMContentLoaded", () => {
           <tr class="epic-mission-row">
             <td class="mission-id-cell">0</td>
             <td>Go to an Epic Mission</td>
-            <td class="mission-points-cell">*</td>
+            <td class="mission-points-cell">Special*</td>
           </tr>
         </tbody>
       </table>
-      <p class="mission-points-cell">*Based on the epicness of the mission, the points for the Epic Mission will be evaluated with Matteo at the end of the party when we will reveal the game.</p>
+      <p class="mission-points-cell">*Based on the epicness of the Epic Mission, the points will be evaluated with Matteo at the end of the party when we will reveal the game.</p>
     `;
   };
 
@@ -98,15 +98,47 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const handleMissionIdInput = (event) => {
-    const missionId = parseInt(event.target.value, 10);    
+    const missionNumbersStr = event.target.value.trim();
+    const missionNumbers = missionNumbersStr
+        .split(',')
+        .map(s => parseInt(s.trim(), 10))
+        .filter(n => !isNaN(n));
+
     const missionTitleElement = document.getElementById('mission-title-preview');
+    const claimButton = claimForm.querySelector('button[type="submit"]');
     if (missionTitleElement) {
-      if (missionId === 0) {
-        missionTitleElement.textContent = 'Mission: Go to an Epic Mission';
-        return;
-      }
-    const mission = missions.find(m => m.id === missionId);
-        missionTitleElement.textContent = mission ? `Mission: ${mission.title}` : 'Mission not found';
+        const titles = missionNumbers.map(num => {
+            if (num === 0) {
+                return 'Go to an Epic Mission';
+            }
+            const mission = missions.find(m => m.mission_number === num);
+            return mission ? mission.title : null;
+        }).filter(Boolean); // Remove nulls for not-found missions
+
+        let totalPoints = 0;
+        const missionsToClaim = missionNumbers.map(num => {
+            if (num === 0) return { points: 0 };
+            return missions.find(m => m.mission_number === num);
+        }).filter(Boolean);
+
+        if (missionsToClaim.length > 0) {
+            totalPoints = missionsToClaim.reduce((sum, mission) => sum + (mission.points || 0), 0);
+        }
+
+        if (missionsToClaim.length > 1) {
+            totalPoints = Math.round(totalPoints * 1.2);
+        }
+
+        if (titles.length > 0) {
+            missionTitleElement.textContent = `Missions: ${titles.join(' + ')}`;
+        } else {
+            missionTitleElement.textContent = 'Enter a valid mission number.';
+        }
+
+        if (claimButton) {
+            const pointsText = totalPoints > 0 ? ` ${totalPoints}` : '';
+            claimButton.textContent = `Claim${pointsText} Points`;
+        }
     }
   };
 
@@ -115,7 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
     event.preventDefault();
     const formData = new FormData(claimForm);
     const username = formData.get("username")?.trim().toLowerCase()
-    const missionId = parseInt(formData.get("mission_id"), 10);
+    const missionNumbersStr = formData.get("mission_id")?.trim();
+    const missionNumbers = missionNumbersStr
+        .split(',')
+        .map(s => parseInt(s.trim(), 10))
+        .filter(n => !isNaN(n));
     const notes = formData.get("notes")?.trim();
     const proofFile = formData.get("proof");
 
@@ -124,8 +160,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    if (isNaN(missionId)) { // Allow 0
-      setFeedback(claimFeedback, "Please enter a valid Mission ID.", "error");
+    if (missionNumbers.length === 0) {
+      setFeedback(claimFeedback, "Please enter at least one valid Mission #.", "error");
       return;
     }
 
@@ -134,32 +170,18 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    let mission;
-    if (missionId === 0) {
-      mission = { id: 0, title: 'Epic Mission', points: 0 };
-    } else {
-      mission = missions.find(m => m.id === missionId);
-    }
-
-    if (!mission) {
-        setFeedback(claimFeedback, `Mission with ID ${missionId} not found.`, "error");
-        return;
-    }
-
     // Handle file upload to Cloudinary first
-    let proofUrl = null;
     if (proofFile && proofFile.size > 0) {
-        setFeedback(claimFeedback, "Preparing and uploading proof...", "muted");
+        setFeedback(claimFeedback, "Preparing and uploading media...", "muted");
 
         const isImage = proofFile.type.startsWith('image/');
         const isVideo = proofFile.type.startsWith('video/');
 
         if (isVideo && proofFile.size > MAX_VIDEO_MB * 1024 * 1024) {
-            setFeedback(claimFeedback, `Video is too large. Please upload a file smaller than ${MAX_VIDEO_MB}MB.`, "error");
+            setFeedback(claimFeedback, `Video is too large. Please upload a video smaller than ${MAX_VIDEO_MB}MB.`, "error");
             return;
         }
         
-        setFeedback(claimFeedback, `Still uploading proof...`, "muted");
         // Compress image if it's an image, otherwise upload original file (for videos)
         const fileToUpload = isImage ? await compressImage(proofFile) : proofFile;
 
@@ -169,20 +191,48 @@ document.addEventListener("DOMContentLoaded", () => {
     const { data: userProofs } = await supabase.from('mission_proofs').select('mission_id').eq('player_username', username);
     const userCompletedMissionIds = userProofs ? userProofs.map(p => p.mission_id) : [];
 
-    const hasCompletedBefore = userCompletedMissionIds.includes(missionId);
-    let pointsGained = mission.points;
+    let totalBasePoints = 0;
+    const proofsToInsert = [];
 
-    if (hasCompletedBefore) {
-      pointsGained = Math.round(pointsGained * 0.5); // Repeat bonus is now default
+    for (const missionNumber of missionNumbers) {
+        let mission;
+        if (missionNumber === 0) {
+            mission = { id: 0, title: 'Epic Mission', points: 0 };
+        } else {
+            mission = missions.find(m => m.mission_number === missionNumber);
+        }
+
+        if (!mission) continue; // Skip invalid mission numbers
+
+        const hasCompletedBefore = userCompletedMissionIds.includes(mission.id);
+        let pointsForThisMission = mission.points;
+
+        if (hasCompletedBefore) {
+            pointsForThisMission = Math.round(pointsForThisMission * 1.5); // Repeat bonus
+        }
+
+        totalBasePoints += pointsForThisMission;
+        proofsToInsert.push({
+            player_username: username,
+            mission_id: mission.id,
+            points_awarded: pointsForThisMission, // Store base points for now
+        });
     }
 
-    const proofToInsert = {
-      player_username: username,
-      mission_id: missionId,
-      points_awarded: pointsGained,
-    };
+    if (proofsToInsert.length === 0) {
+        setFeedback(claimFeedback, "No valid missions found to claim.", "warning");
+        return;
+    }
 
-    const { error } = await supabase.from('mission_proofs').insert([proofToInsert]);
+    let finalTotalPoints = totalBasePoints;
+    if (proofsToInsert.length > 1) {
+        finalTotalPoints = Math.round(totalBasePoints * 1.2); // Combo bonus
+        // Distribute the total points evenly across the claimed missions
+        const pointsPerMission = Math.round(finalTotalPoints / proofsToInsert.length);
+        proofsToInsert.forEach(proof => proof.points_awarded = pointsPerMission);
+    }
+
+    const { error } = await supabase.from('mission_proofs').insert(proofsToInsert);
     if (error) {
         setFeedback(claimFeedback, `Error saving progress: ${error.message}`, "error");
         return;
@@ -191,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Re-render components
     await renderLeaderboard();
 
-    setFeedback(claimFeedback, "Ok!", "success");
+    setFeedback(claimFeedback, "Media uploaded successfully!", "success");
     claimForm.reset();
   };
 
@@ -500,13 +550,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // --- Utility Functions ---
   const setFeedback = (element, message, tone) => {
+    let feedbackTimer = null;
     if (!element) return;
+
+    if (feedbackTimer) clearTimeout(feedbackTimer);
+
     element.textContent = message;
     element.dataset.tone = tone;
-    setTimeout(() => {
+
+    if (tone !== 'muted') {
+      feedbackTimer = setTimeout(() => {
         element.textContent = "";
         element.dataset.tone = "muted";
-    }, 5000);
+      }, 5000);
+    }
   };
 
   // --- Initialization ---
