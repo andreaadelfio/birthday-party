@@ -158,7 +158,8 @@ document.addEventListener("DOMContentLoaded", () => {
             setFeedback(claimFeedback, `Video is too large. Please upload a file smaller than ${MAX_VIDEO_MB}MB.`, "error");
             return;
         }
-
+        
+        setFeedback(claimFeedback, `Uploading proof...`, "muted");
         // Compress image if it's an image, otherwise upload original file (for videos)
         const fileToUpload = isImage ? await compressImage(proofFile) : proofFile;
 
