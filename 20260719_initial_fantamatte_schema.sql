@@ -75,7 +75,7 @@ BEGIN
     WITH numbered_missions AS (
         SELECT
             id,
-            ROW_NUMBER() OVER (ORDER BY points ASC, id ASC) AS new_mission_number
+            ROW_NUMBER() OVER (ORDER BY points ASC, title ASC) AS new_mission_number
         FROM
             public.missions
     )
